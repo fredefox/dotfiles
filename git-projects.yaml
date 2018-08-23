@@ -52,20 +52,9 @@ janmasrovira:
 - phileas
 
 MUSTE-Project:
-- digestive-functors
 - Mulle
-- muste-ajax.hlint
-- muste-elm
-- muste.hlint
 - pgf
-- runall.hs
-- snap-extras
-- sqlite-simple
-- stuff
-- weeds
-- #worklog.yaml#
 - worklog.yaml
-- worklog.yaml~
 
 nurpax:
 - sqlite-simple
