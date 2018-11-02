@@ -1,0 +1,22 @@
+! Disable scrolling
+URxvt.scrollBar: false
+
+! Allow clicking URLs
+URxvt.perl-ext-common: default,matcher,new-window,selection-to-clipboard,close-prevent
+URxvt.url-launcher: sensible-browser
+URxvt.matcher.button: 1
+
+! This allows applications to set the window title.
+URxvt.insecure: true
+
+URxvt.keysym.C-N: perl:new-window
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+URxvt.saveLines:        65535
+
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
