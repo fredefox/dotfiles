@@ -1,70 +1,104 @@
+ndmitchell:
+- ghcid
+idris-lang:
+- idris-dev
+ghc:
+- ghc
+GrammaticalFramework:
+- gf-rgl
+- gf-core
+MUSTE-Project:
+- adjustable-trees
+- MULLE.old
+- junk
+- MULLE
+- MULLE-wiki
+- gf-core
+creichert:
+- stack-tag
+bmillwood:
+- haskell-src-meta
+rickyrockrat:
+- parcellite
+commercialhaskell:
+- stack
+snapframework:
+- snap-core
+- snap
+adobe-fonts:
+- source-code-pro
 agda:
+- agda-ocaml
 - agda
-
+gershomb:
+- jmacro
+twanvl:
+- multiset
+jwiegley:
+- gitlib
+IonicaBizau:
+- git-stats
+swaywm:
+- wlroots
+- sway
+htacg:
+- tidy-html5
+PCMan:
+- gtk3-nocsd
+haskell:
+- hackage-server
+- haskell-mode
+- cabal
+- haddock
+sdiehl:
+- repline
+zevv:
+- duc
+jaspervdj:
+- profiteur
+sigmike:
+- autocutsel
+i3:
+- i3
+judah:
+- haskeline
 AlDanial:
 - cloc
-
-citizennet:
-- purescript-halogen-template
-
-daherb:
-- GF-latin
-
-ekmett:
-- succinct-binary
-
-fredefox:
-- cat
-- dotfiles
-- ethambda-agda
-- ethambda-hs
-- ethambda-idr
-- fredefox.github.io
-- frelude
-- hal-basic
-- mono-traversable
-- naughty-nice
-- rhyme
-- symbols
-- time-keeper
-- val
-
-GrammaticalFramework:
-- gf-contrib
-- gf-core
-- gf-rgl
-
+schell:
+- steeloverseer
 haikarainen:
 - light
-
-haskell:
-- haddock
-- haskell-ide-engine
-
-haskell-suite:
-- haskell-src-exts
-
-idris-lang:
-- Idris-dev
-
-janmasrovira:
-- masters-thesis-doc
-- phileas
-
-MUSTE-Project:
-- Mulle
-- pgf
-- worklog.yaml
-
+valmdz:
+- dia
+- haskelicious
 nurpax:
 - sqlite-simple
-
-PandorasFox:
-- i3lock-color
-
-sciurus:
-- i3tree
-
-sdiehl:
-- protolude
-- repline
+- db-bench
+ozataman:
+- snap-extras
+ekmett:
+- monad-st
+Saizan:
+- cubical-demo
+cdepillabout:
+- termonad
+hoxy:
+- gitstats
+colah:
+- ImplicitCAD
+fredefox:
+- ethambda-hs
+- cad-test
+- applications
+- spirograph
+- dotfiles
+- github.old
+- cat
+- time-keeper
+- rhyme
+- mono-traversable
+- fredefox.github.io
+- ethambda-idr
+- gitm
+- ethambda-agda
+- frelude
