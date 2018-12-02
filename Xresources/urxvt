@@ -20,3 +20,6 @@ URxvt.saveLines:        65535
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
