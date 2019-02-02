@@ -1,0 +1,51 @@
+-- Language extensions
+:set -XBangPatterns
+:set -XBinaryLiterals
+:set -XConstraintKinds
+:set -XDefaultSignatures
+:set -XDeriveAnyClass
+:set -XDeriveDataTypeable
+:set -XDeriveFoldable
+:set -XDeriveFunctor
+:set -XDeriveGeneric
+:set -XDeriveLift
+:set -XDeriveTraversable
+:set -XDerivingStrategies
+:set -XDisambiguateRecordFields
+:set -XDuplicateRecordFields
+:set -XEmptyCase
+:set -XEmptyDataDecls
+:set -XExistentialQuantification
+:set -XExplicitForAll
+:set -XFlexibleContexts
+:set -XFlexibleInstances
+:set -XFunctionalDependencies
+:set -XGADTs
+:set -XGeneralisedNewtypeDeriving
+:set -XInstanceSigs
+:set -XLambdaCase
+:set -XMultiParamTypeClasses
+:set -XMultiWayIf
+:set -XNamedFieldPuns
+:set -XNamedWildCards
+:set -XNumDecimals
+:set -XPackageImports
+:set -XPartialTypeSignatures
+:set -XQuasiQuotes
+:set -XRankNTypes
+:set -XRecordWildCards
+:set -XScopedTypeVariables
+:set -XStandaloneDeriving
+:set -XTypeApplications
+:set -XTypeFamilies
+:set -XUnicodeSyntax
+
+-- Interface options
+:set -fdefer-type-errors
+:set -fno-show-valid-substitutions
+:set -fmax-valid-substitutions=0
+:set -fprint-unicode-syntax
+:set -Wincomplete-patterns
+:set -Wcompat
+:set prompt "λ "
+:set prompt-cont "… "

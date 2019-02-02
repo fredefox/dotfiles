@@ -1,6 +1,6 @@
 ! High DPI settings
 ! Xft.dpi: 180
-*dpi: 108
+*dpi: 120
 ! Xft.dpi: 150
 
 *autohint: 0
@@ -10,10 +10,10 @@
 *antialias: 1
 *rgba: rgb
 
-URxvt.font:           xft:DejaVu Sans Mono:size=14
-URxvt.boldFont:       xft:DejaVu Sans Mono:size=14:style=Bold
-URxvt.italicFont:     xft:DejaVu Sans Mono:size=14:style=Oblique
-URxvt.boldItalicFont: xft:DejaVu Sans Mono:size=14:style=Bold Oblique
+URxvt.font:           xft:DejaVu Sans Mono
+URxvt.boldFont:       xft:DejaVu Sans Mono:style=Bold
+URxvt.italicFont:     xft:DejaVu Sans Mono:style=Oblique
+URxvt.boldItalicFont: xft:DejaVu Sans Mono:style=Bold Oblique
 URxvt.letterSpace:    -2
 URxvt.buffered:       false
 

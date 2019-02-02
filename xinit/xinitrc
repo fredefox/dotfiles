@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Daemons
+# Perhaps this sort of thing belongs elsewhere?
+nm-applet &
+emacs --daemon
+
+setxkbmap -option grp:win_space_toggle -layout us,dk
+xrdb -merge ~/.Xresources
+
+# Nice for urxvt, not so nice for emacs:
+# autocutsel -f

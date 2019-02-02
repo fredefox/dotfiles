@@ -2,7 +2,7 @@
 URxvt.scrollBar: false
 
 ! Allow clicking URLs
-URxvt.perl-ext-common: default,matcher,new-window,selection-to-clipboard,close-prevent
+URxvt.perl-ext-common: default,matcher,new-window,selection-to-clipboard,close-prompt
 URxvt.url-launcher: sensible-browser
 URxvt.matcher.button: 1
 

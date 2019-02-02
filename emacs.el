@@ -2,6 +2,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("MELPA" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -16,9 +18,15 @@
  '(agda2-program-args nil)
  '(blink-cursor-mode nil)
  '(echo-keystrokes 1e-10)
+ '(haskell-indentation-where-post-offset 0)
+ '(haskell-indentation-where-pre-offset 0)
+ '(js-indent-level 2)
+ '(markdown-command "pandoc -t html")
  '(package-selected-packages
    (quote
-    (ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard))))
+    (purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard)))
+ '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
+ '(sgml-basic-offset 1))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -31,10 +39,26 @@
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/haskell-mode/")
 (add-to-list 'load-path                   "~/.config/emacs/libs/agda-mode/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/agda-mode/")
+(add-to-list 'load-path                   "~/.config/emacs/libs/purescript-mode/")
+(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/purescript-mode/")
+(add-to-list 'load-path                   "~/.config/emacs/libs/psc-ide-emacs/")
+(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/psc-ide-emacs/")
+
+(require 'purescript-mode-autoloads)
+
+(require 'psc-ide)
+
+(add-hook 'purescript-mode-hook
+  (lambda ()
+    (psc-ide-mode)
+    (company-mode)
+    (flycheck-mode)
+    (turn-on-purescript-indentation)))
 
 ;; (load-file (let ((coding-system-for-read 'utf-8))
-;;      (shell-command-to-string "agda-mode locate")))
+;;              "/home/fredefox/.cabal/store/ghc-8.4.4/Agda-2.6.0-eb370edb312aa9c0898503c71027e277278a4f3b94a09bc4e57221769a05cada/share/emacs-mode/agda2.el"))
 
+;; Temp disabled.
 (require 'agda2-mode)
 
 
@@ -64,6 +88,7 @@
 ;;;; Dashboard
 
 (dashboard-setup-startup-hook)
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 ;; (setq dashboard-startup-banner 'logo)
 
 
@@ -92,11 +117,13 @@
 
 (global-unset-key (kbd "C-z"))
 
-(require 'haskell-unicode-input-method)
-(add-hook 'haskell-mode-hook
-  (lambda () (set-input-method "haskell-unicode")))
+;; Temp. disabled
+;; (require 'haskell-unicode-input-method)
+;; (add-hook 'haskell-mode-hook
+;;   (lambda () (set-input-method "haskell-unicode")))
 
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 (show-paren-mode)
 
@@ -115,7 +142,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (setq dashboard-startup-banner "/home/fredefox/.local/share/emacs/fredefox.svg")
 (setq dashboard-items '((recents  . 40)))

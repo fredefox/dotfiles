@@ -1,0 +1,3 @@
+HERE="$HOME/.config/zsh"
+source "$HERE/oh-my-zsh"
+source "$HERE/config"

@@ -1,0 +1,6 @@
+[user]
+	name = Frederik Hanghøj Iversen
+	email = fhi.1990@gmail.com
+[core]
+	excludesfile = /home/fredefox/.config/git/ignore
+	editor = emacs -nw
