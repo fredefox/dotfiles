@@ -23,3 +23,14 @@ Konsole.italicFont:     xft:DejaVu Sans Mono:size=14:style=Oblique
 Konsole.boldItalicFont: xft:DejaVu Sans Mono:size=14:style=Bold Oblique
 Konsole.letterSpace:    -2
 Konsole.buffered:       false
+
+rofi.color-enabled: true
+rofi.color-window: #2e3440, #f8f8f2, #f8f8f2
+rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #bf616a
+rofi.color-active: #2e3440, #b48ead, #2e3440, #2e3440, #93e5cc
+rofi.color-urgent: #2e3440, #ebcb8b, #2e3440, #2e3440, #ebcb8b
+rofi.modi: run,drun,window
+
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped

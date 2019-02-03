@@ -10,3 +10,8 @@ xrdb -merge ~/.Xresources
 
 # Nice for urxvt, not so nice for emacs:
 # autocutsel -f
+
+# From https://raw.githubusercontent.com/hemanth/haskell-rascal/master/imgs/swahili.png
+hsetroot -center ~/.local/share/hsetroot/swahili.png
+# xsettingsd &
+compton -b

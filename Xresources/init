@@ -1,0 +1,4 @@
+#include ".config/Xresources/general"
+#include ".config/Xresources/urxvt"
+#include ".config/Xresources/theme/monokai-dark"
+
