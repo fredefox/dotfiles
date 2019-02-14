@@ -2,8 +2,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-;; (add-to-list 'package-archives
-;;              '("MELPA" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("MELPA" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -16,17 +16,26 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(agda2-program-args nil)
+ '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg" "~/.netrc")))
  '(blink-cursor-mode nil)
+ '(display-buffer-alist (quote (("*Buffer List*" display-buffer-same-window))))
  '(echo-keystrokes 1e-10)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
+ '(haskell-tags-on-save t)
  '(js-indent-level 2)
+ '(line-move-visual nil)
  '(markdown-command "pandoc -t html")
  '(package-selected-packages
    (quote
-    (purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard)))
+    (image+ company flycheck lsp-haskell forge frames-only-mode projectile lsp-ui lsp-mode purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard)))
+ '(projectile-mode t nil (projectile))
+ '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
- '(sgml-basic-offset 1))
+ '(sgml-basic-offset 1)
+ '(temp-buffer-resize-mode nil)
+ '(vc-follow-symlinks nil)
+ '(window-combination-resize t))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -83,6 +92,8 @@
 
 (global-set-key (kbd "C-c f") 'flyckeck-next-error)
 (global-set-key (kbd "C-c b") 'flycheck-prev-error)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(projectile-mode)
 
 
 ;;;; Dashboard

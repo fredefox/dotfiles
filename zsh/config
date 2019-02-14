@@ -50,3 +50,5 @@ alias gp="git add -p"
 # source $HOME/.config/gf/config
 alias ide='ghcid -c "stack ghci --test --ghci-options=-fno-break-on-exception --ghci-options=-fno-break-on-error --ghci-options=-v1 --ghci-options=-ferror-spans --ghci-options=-j"'
 export PAGER="less -FX"
+# perhaps just use .selected_editor for this?
+export EDITOR='emacsclient -c'

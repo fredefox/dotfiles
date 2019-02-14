@@ -4,3 +4,7 @@
 [core]
 	excludesfile = /home/fredefox/.config/git/ignore
 	editor = emacs -nw
+[github]
+	user = fredefox
+[gitlab]
+	user = fredefox
