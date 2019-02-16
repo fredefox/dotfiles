@@ -205,6 +205,7 @@ client.urgent $base02 $base08 $base07 $base08
 # Bar
 bar {
   # status_command i3status
+  position top
   status_command i3blocks
   tray_output primary
 

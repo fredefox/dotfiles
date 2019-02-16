@@ -7,6 +7,7 @@ emacs --daemon
 
 setxkbmap -option grp:win_space_toggle -layout us,dk
 xrdb -merge ~/.Xresources
+acpid
 
 # Nice for urxvt, not so nice for emacs:
 # autocutsel -f

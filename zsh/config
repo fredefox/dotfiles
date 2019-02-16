@@ -1,48 +1,27 @@
 # 
-# User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export XDG_CONFIG_HOME="$HOME/.cache"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# The following lines were added by compinstall
+# Begin compinstall
 zstyle :compinstall filename '/home/fredefox/.zshrc'
-
 autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=100000
+compinit -d $XDG_DATA_HOME/zsh/zcompdump-$HOST-$ZSH_VERSION
+# End compinstall
+
+export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export DUC_DATABASE="$XDG_DATA_HOME/duc/db"
+export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/repl-history"
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTSIZE=100000
+export SAVEHIST=100000
 setopt appendhistory extendedglob
 unsetopt autocd beep
 bindkey -e
-# End of lines configured by zsh-newuser-install
 
 # export PATH="$HOME/.local/bin:$PATH"
 alias sb="stack build"
@@ -50,5 +29,5 @@ alias gp="git add -p"
 # source $HOME/.config/gf/config
 alias ide='ghcid -c "stack ghci --test --ghci-options=-fno-break-on-exception --ghci-options=-fno-break-on-error --ghci-options=-v1 --ghci-options=-ferror-spans --ghci-options=-j"'
 export PAGER="less -FX"
-# perhaps just use .selected_editor for this?
-export EDITOR='emacsclient -c'
+export MANWIDTH=80
+export EDITOR='emacsclient -c -a ""'

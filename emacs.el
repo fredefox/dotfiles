@@ -23,6 +23,7 @@
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
  '(haskell-tags-on-save t)
+ '(initial-scratch-message nil)
  '(js-indent-level 2)
  '(line-move-visual nil)
  '(markdown-command "pandoc -t html")
@@ -33,6 +34,7 @@
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
  '(sgml-basic-offset 1)
+ '(shr-width 80)
  '(temp-buffer-resize-mode nil)
  '(vc-follow-symlinks nil)
  '(window-combination-resize t))
@@ -70,11 +72,19 @@
 ;; Temp disabled.
 (require 'agda2-mode)
 
+;; (require 'lsp)
+;; Shame! `lsp-ui` is emitting:
+;; Eager macro-expansion failure: (wrong-type-argument listp kind)
+;; (require 'lsp-ui)
+;; (require 'lsp-haskell)
+;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;; (add-hook 'haskell-mode-hook #'lsp)
+
 
 ;;;; Captain Hook
 
 (add-hook 'text-mode-hook 'recentf-mode)
-(add-hook 'text-mode-hook 'column-number-mode)
+(column-number-mode 1)
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'form-feed-mode)
 ;; I think this breaks e.g. the color-picker
