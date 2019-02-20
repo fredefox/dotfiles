@@ -15,6 +15,11 @@ URxvt.keysym.Shift-Down: command:\033]721;1\007
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
+! URxvt.keysym.C-w:   perl:clipboard:copy
+! URxvt.keysym.C-y:   perl:clipboard:paste
+! URxvt.keysym.M-C-v: perl:clipboard:paste_escape
+URxvt.clipboard.autocopy: true
+
 URxvt.saveLines:        65535
 
 URxvt*scrollTtyOutput:      false
@@ -23,3 +28,8 @@ URxvt*scrollTtyKeypress:    true
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
+
+! URxvt.clipboard.copycmd:  xclip -i -selection clipboard
+! URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+! URxvt.clipboard.copycmd:  xsel -ib
+! URxvt.clipboard.pastecmd: xsel -ob

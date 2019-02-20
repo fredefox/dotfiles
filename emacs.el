@@ -1,5 +1,8 @@
+;;;; init.el --- Summary
+;;;; Commentary:
 ;;;; Initialization
 (require 'package)
+;;; Code:
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
@@ -15,36 +18,72 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(agda2-highlight-face-groups (quote default-faces))
  '(agda2-program-args nil)
- '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg" "~/.netrc")))
+ '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
  '(blink-cursor-mode nil)
- '(display-buffer-alist (quote (("*Buffer List*" display-buffer-same-window))))
+ '(column-number-mode t)
+ '(delete-selection-mode t)
+ '(dired-isearch-filenames t)
+ '(display-buffer-alist
+   (quote
+    ((".*Man.*" display-buffer-same-window)
+     ("*Buffer List*" display-buffer-same-window))))
  '(echo-keystrokes 1e-10)
+ '(erc-nick "fredefox")
+ '(erc-port 667)
+ '(erc-server "irc.freenode.net")
+ '(flycheck-emacs-lisp-load-path (quote inherit))
+ '(flycheck-ghc-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
+ '(flycheck-hlint-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
+ '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
  '(haskell-tags-on-save t)
+ '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
  '(js-indent-level 2)
  '(line-move-visual nil)
  '(markdown-command "pandoc -t html")
+ '(menu-bar-mode nil)
+ '(message-send-mail-function (quote smtpmail-send-it))
  '(package-selected-packages
    (quote
     (image+ company flycheck lsp-haskell forge frames-only-mode projectile lsp-ui lsp-mode purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard)))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
+ '(recentf-max-menu-items 255)
+ '(recentf-mode t)
+ '(scroll-bar-mode nil)
+ '(scroll-conservatively 101)
+ '(scroll-margin 3)
+ '(select-enable-clipboard t)
+ '(send-mail-function (quote smtpmail-send-it))
  '(sgml-basic-offset 1)
+ '(show-paren-mode t)
  '(shr-width 80)
+ '(split-window-keep-point nil)
  '(temp-buffer-resize-mode nil)
+ '(tool-bar-mode nil)
  '(vc-follow-symlinks nil)
- '(window-combination-resize t))
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+ '(window-combination-resize t)
+ '(window-resize-pixelwise t))
 
 
-;;;; Agda
+;;;; Additional packages
+
+(defvar extra-libs-root "~/.config/emacs/libs")
+
+(defvar additional-packages
+  (list
+    "haskell-mode"
+    "agda-mode"
+    "purescript-mode"
+    "psc-ide-emacs"))
+
+;; TODO: Use the following pattern
+;; (substitute-in-file-name "$XDG_DATA_HOME/emacs/libs/%s")
 
 (add-to-list 'load-path                   "~/.config/emacs/libs/haskell-mode/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/haskell-mode/")
@@ -55,6 +94,8 @@
 (add-to-list 'load-path                   "~/.config/emacs/libs/psc-ide-emacs/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/psc-ide-emacs/")
 
+(require 'mu4e)
+
 (require 'purescript-mode-autoloads)
 
 (require 'psc-ide)
@@ -63,13 +104,8 @@
   (lambda ()
     (psc-ide-mode)
     (company-mode)
-    (flycheck-mode)
     (turn-on-purescript-indentation)))
 
-;; (load-file (let ((coding-system-for-read 'utf-8))
-;;              "/home/fredefox/.cabal/store/ghc-8.4.4/Agda-2.6.0-eb370edb312aa9c0898503c71027e277278a4f3b94a09bc4e57221769a05cada/share/emacs-mode/agda2.el"))
-
-;; Temp disabled.
 (require 'agda2-mode)
 
 ;; (require 'lsp)
@@ -83,10 +119,18 @@
 
 ;;;; Captain Hook
 
-(add-hook 'text-mode-hook 'recentf-mode)
-(column-number-mode 1)
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'form-feed-mode)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
+
+(add-hook 'text-mode-hook
+  (lambda ()
+    (word-wrap-mode)
+    (recentf-mode)
+    (flyspell-mode)))
+
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (form-feed-mode)
+            (flycheck-mode)))
 ;; I think this breaks e.g. the color-picker
 ; (add-hook 'text-mode-hook 'form-feed-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -98,72 +142,78 @@
 ;; ;; (require 'haskell-unicode-input-method)
 
 
-;;;; Flycheck
+;;;; Projectile
 
-(global-set-key (kbd "C-c f") 'flyckeck-next-error)
-(global-set-key (kbd "C-c b") 'flycheck-prev-error)
+(projectile-mode +1)
+(defvar projectile-mode-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(projectile-mode)
 
-
 ;;;; Dashboard
 
+(require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-;; (setq dashboard-startup-banner 'logo)
+(setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.svg"))
+(setq dashboard-items '((recents  . 40)))
 
 
-;; ;; (defun scroll-down-half ()
-;; ;;   (interactive)
-;; ;;   (move-to-window-line nil)
-;; ;;   (recenter-top-bottom 0))
-;; ;; (defun scroll-up-half ()
-;; ;;   (interactive)
-;; ;;   (move-to-window-line nil)
-;; ;;   (recenter-top-bottom -1))
-
-;; (global-set-key (kbd "C-S-v") 'scroll-down-half)
-;; (global-set-key (kbd "C-M-v") 'scroll-up-half)
-(setenv "MANWIDTH" "72")
-(setq-default indent-tabs-mode nil)
+;;;; Miscelaneous
 (put 'downcase-region 'disabled nil)
 
 (setq ring-bell-function
       (lambda ()
-        (let ((orig-fg (face-foreground 'mode-line)))
-          (set-face-foreground 'mode-line "#F2804F")
+        (let ((orig-bg (face-background 'mode-line)))
+          (set-face-background 'mode-line (face-attribute 'error :foreground))
           (run-with-idle-timer 0.1 nil
-                               (lambda (fg) (set-face-foreground 'mode-line fg))
-                               orig-fg))))
+                               (lambda (bg)
+                                 (set-face-background 'mode-line bg)) orig-bg))))
 
 (global-unset-key (kbd "C-z"))
 
-;; Temp. disabled
-;; (require 'haskell-unicode-input-method)
-;; (add-hook 'haskell-mode-hook
-;;   (lambda () (set-input-method "haskell-unicode")))
-
+;;;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
-(show-paren-mode)
-
-(fset 'haskell/def
-   [M-backspace ?\C-y ?  ?: ?: ?  ?_ return ?\C-y ?  ?= ?  ?_ ?\C-y])
-
-;; (global-set-key (kbd "C-x C-e") 'magit-status)
-(setq x-select-enable-clipboard t)
-
 (require 'haskell-mode-autoloads)
-(delete-selection-mode 1)
+
+;;;; Faces
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-lock-comment-face ((t (:foreground "chocolate1"))))
+ '(font-lock-keyword-face ((t (:foreground "Cyan1"))))
+ '(variable-pitch ((t nil))))
 
-;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 
-(setq dashboard-startup-banner "/home/fredefox/.local/share/emacs/fredefox.svg")
-(setq dashboard-items '((recents  . 40)))
+
+;;;; mu4e
+(setq send-mail-function 'smtpmail-send-it
+      user-mail-address "fhi.1990@gmail.com"
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      ;; smtpmail-stream-type  'starttls
+      smtpmail-smtp-service 587)
+
+;; Now I set a list of
+;; (defvar my-mu4e-account-alist
+;;   '(("Gmail"
+;;      (mu4e-sent-folder "/Gmail/sent")
+;;      (user-mail-address "fhi.1990@gmail.com")
+;;      (smtpmail-smtp-user "fhi.1990")
+;;      (smtpmail-local-domain "gmail.com")
+;;      (smtpmail-default-smtp-server "smtp.gmail.com")
+;;      (smtpmail-smtp-server "smtp.gmail.com")
+;;      (smtpmail-smtp-service 587)
+;;      )
+;;      ;; Include any other accounts here ...
+;;     ))
+
+;;; ERC
+(require 'erc)
+;; (erc :server "irc.freenode.net" :port 6667 :nick "fredefox")
+;; (setq erc-autojoin-channels-alist
+;;       '(("#data.coop" "#haskell" "#Agda")))
+;;; init.el ends here

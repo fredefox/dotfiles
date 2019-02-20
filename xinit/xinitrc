@@ -3,11 +3,13 @@
 # Daemons
 # Perhaps this sort of thing belongs elsewhere?
 nm-applet &
-emacs --daemon
+# emacs --daemon
 
 setxkbmap -option grp:win_space_toggle -layout us,dk
 xrdb -merge ~/.Xresources
-acpid
+# This is now controlled from systemd - should consider using a proper
+# session manager.
+# acpid
 
 # Nice for urxvt, not so nice for emacs:
 # autocutsel -f

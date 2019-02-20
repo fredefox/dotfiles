@@ -48,6 +48,7 @@ getLinks home = std <> absolute
     , "xinit"
     , "Xresources"
     , "zsh"
+    , "environment.d"
     ]
   absolute =
     [ ".emacs.d"    |> ".config/emacs"
