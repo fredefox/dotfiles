@@ -1,7 +1,6 @@
 # Begin compinstall
 zstyle :compinstall filename '/home/fredefox/.zshrc'
-autoload -Uz compinit
-compinit -d "$XDG_DATA_HOME/zsh/zcompdump-$HOST-$ZSH_VERSION"
+autoload -Uz compinit -d "$XDG_DATA_HOME/zsh/zcompdump-$HOST-$ZSH_VERSION"
 # End compinstall
 
 setopt appendhistory extendedglob

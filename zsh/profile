@@ -1,3 +1,0 @@
-if [ -d "$HOME/.config/environment" ] ; then
-    source $HOME/.config/environment
-fi

@@ -52,7 +52,6 @@ getLinks home = std <> absolute
     ]
   absolute =
     [ ".emacs.d"    |> ".config/emacs"
-    , ".gitconfig"  |> ".config/git/config"
     , ".urxvt"      |> ".config/urxvt"
     , ".xinitrc"    |> ".config/xinit/xinitrc"
     , ".xsession"   |> ".xinitrc"

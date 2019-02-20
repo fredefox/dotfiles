@@ -6,7 +6,7 @@ nm-applet &
 # emacs --daemon
 
 setxkbmap -option grp:win_space_toggle -layout us,dk
-xrdb -merge ~/.Xresources
+xrdb -merge $XDG_CONFIG_HOME/X11/Xresources
 # This is now controlled from systemd - should consider using a proper
 # session manager.
 # acpid
