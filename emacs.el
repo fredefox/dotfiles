@@ -11,7 +11,7 @@
 (package-initialize)
 
 
-;;; Variables
+;;; Custom
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -28,7 +28,8 @@
  '(display-buffer-alist
    (quote
     ((".*Man.*" display-buffer-same-window)
-     ("*Buffer List*" display-buffer-same-window))))
+     ("Buffer List" display-buffer-same-window
+     ("magit-revision:" display-buffer-same-window))))
  '(echo-keystrokes 1e-10)
  '(erc-nick "fredefox")
  '(erc-port 667)
@@ -44,12 +45,15 @@
  '(initial-scratch-message nil)
  '(js-indent-level 2)
  '(line-move-visual nil)
+ '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
+ '(magit-popup-display-buffer-action nil)
  '(markdown-command "pandoc -t html")
  '(menu-bar-mode nil)
  '(message-send-mail-function (quote smtpmail-send-it))
+ '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
    (quote
-    (image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+    (image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
@@ -72,26 +76,32 @@
  '(window-resize-pixelwise t))
 
 
+;;;; Faces
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-comment-face ((t (:foreground "chocolate1"))))
+ '(font-lock-keyword-face ((t (:foreground "Cyan1"))))
+ '(variable-pitch ((t nil))))
+
+
 ;;;; Additional packages
 
 (defvar extra-libs-root "~/.config/emacs/libs")
 
 (defvar additional-packages
   (list
-    "haskell-mode"
     "agda-mode"
-    "purescript-mode"
     "psc-ide-emacs"))
 
 ;; TODO: Use the following pattern
 ;; (substitute-in-file-name "$XDG_DATA_HOME/emacs/libs/%s")
 
-(add-to-list 'load-path                   "~/.config/emacs/libs/haskell-mode/")
-(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/haskell-mode/")
 (add-to-list 'load-path                   "~/.config/emacs/libs/agda-mode/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/agda-mode/")
-(add-to-list 'load-path                   "~/.config/emacs/libs/purescript-mode/")
-(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/purescript-mode/")
 (add-to-list 'load-path                   "~/.config/emacs/libs/psc-ide-emacs/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/psc-ide-emacs/")
 
@@ -178,16 +188,6 @@
 
 (require 'haskell-mode-autoloads)
 
-;;;; Faces
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-comment-face ((t (:foreground "chocolate1"))))
- '(font-lock-keyword-face ((t (:foreground "Cyan1"))))
- '(variable-pitch ((t nil))))
-
 ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 
 
@@ -227,7 +227,7 @@
 (setq jiralib-url "https://zendesk.atlassian.net")
 
 ;;; Jira
-(add-to-list 'load-path "~/.config/emacs.d/lisp")
+(add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'jira)
 (define-key jira-mode-map (kbd "C-c j") 'jira-command-map)
 
