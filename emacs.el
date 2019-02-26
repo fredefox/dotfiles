@@ -1,8 +1,8 @@
-;;;; init.el --- Summary
-;;;; Commentary:
-;;;; Initialization
-(require 'package)
+;;; init.el --- Summary
+;;; Commentary:
+;;; Initialization
 ;;; Code:
+(require 'package)
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
@@ -49,7 +49,7 @@
  '(message-send-mail-function (quote smtpmail-send-it))
  '(package-selected-packages
    (quote
-    (image+ company flycheck lsp-haskell forge frames-only-mode projectile lsp-ui lsp-mode purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haml-mode form-feed dashboard)))
+    (image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
@@ -62,6 +62,7 @@
  '(send-mail-function (quote smtpmail-send-it))
  '(sgml-basic-offset 1)
  '(show-paren-mode t)
+ '(set-mark-command-repeat-pop t)
  '(shr-width 80)
  '(split-window-keep-point nil)
  '(temp-buffer-resize-mode nil)
@@ -134,6 +135,7 @@
 ;; I think this breaks e.g. the color-picker
 ; (add-hook 'text-mode-hook 'form-feed-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'ruby-mode-hook (lambda() (subword-mode 1)))
 ;; global-company-mode keeps recentering the point on the screen for
 ;; some reason
 ; (add-hook 'after-init-hook 'global-company-mode)
@@ -143,11 +145,12 @@
 
 
 ;;;; Projectile
+(require 'projectile)
 
 (projectile-mode +1)
-(defvar projectile-mode-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+
 ;;;; Dashboard
 
 (require 'dashboard)
@@ -156,9 +159,8 @@
 (setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.svg"))
 (setq dashboard-items '((recents  . 40)))
 
-
 ;;;; Miscelaneous
-(put 'downcase-region 'disabled nil)
+(setq-default indent-tabs-mode nil)
 
 (setq ring-bell-function
       (lambda ()
@@ -216,4 +218,17 @@
 ;; (erc :server "irc.freenode.net" :port 6667 :nick "fredefox")
 ;; (setq erc-autojoin-channels-alist
 ;;       '(("#data.coop" "#haskell" "#Agda")))
+
+(setq ruby-deep-indent-paren nil)
+(setq ruby-use-smie nil)
+
+;; org-jira [https://github.com/ahungry/org-jira]
+(require 'org-jira)
+(setq jiralib-url "https://zendesk.atlassian.net")
+
+;;; Jira
+(add-to-list 'load-path "~/.config/emacs.d/lisp")
+(require 'jira)
+(define-key jira-mode-map (kbd "C-c j") 'jira-command-map)
+
 ;;; init.el ends here
