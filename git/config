@@ -7,3 +7,5 @@
 	user = fredefox
 [gitlab]
 	user = fredefox
+[diff]
+        algorithm = patience

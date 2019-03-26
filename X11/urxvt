@@ -29,7 +29,7 @@ URxvt*scrollTtyKeypress:    true
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
-! URxvt.clipboard.copycmd:  xclip -i -selection clipboard
-! URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+URxvt.clipboard.copycmd:  xclip -i -selection clipboard
+URxvt.clipboard.pastecmd: xclip -o -selection clipboard
 ! URxvt.clipboard.copycmd:  xsel -ib
 ! URxvt.clipboard.pastecmd: xsel -ob

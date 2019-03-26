@@ -29,14 +29,21 @@
    (quote
     ((".*Man.*" display-buffer-same-window)
      ("Buffer List" display-buffer-same-window
-     ("magit-revision:" display-buffer-same-window))))
+     ("magit-revision:" display-buffer-same-window)))))
  '(echo-keystrokes 1e-10)
+ '(erc-autojoin-channels-alist (quote (("irc.freenode.net" "#haskell" "#data.coop"))))
+ '(erc-autojoin-mode t)
  '(erc-nick "fredefox")
- '(erc-port 667)
+ '(erc-port 6667)
+ '(erc-prompt-for-password nil)
  '(erc-server "irc.freenode.net")
  '(flycheck-emacs-lisp-load-path (quote inherit))
- '(flycheck-ghc-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
- '(flycheck-hlint-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
+ '(flycheck-ghc-language-extensions
+   (quote
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings")))
+ '(flycheck-hlint-language-extensions
+   (quote
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings")))
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
  '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
@@ -61,12 +68,13 @@
  '(recentf-mode t)
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
- '(scroll-margin 3)
+ '(scroll-margin 0)
  '(select-enable-clipboard t)
  '(send-mail-function (quote smtpmail-send-it))
  '(sgml-basic-offset 1)
  '(show-paren-mode t)
  '(set-mark-command-repeat-pop t)
+ '(show-trailing-whitespace t)
  '(shr-width 80)
  '(split-window-keep-point nil)
  '(temp-buffer-resize-mode nil)
@@ -83,6 +91,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(agda2-highlight-unsolved-constraint-face ((t (:background "dark orange"))))
+ '(agda2-highlight-unsolved-meta-face ((t (:background "dark orange"))))
  '(font-lock-comment-face ((t (:foreground "chocolate1"))))
  '(font-lock-keyword-face ((t (:foreground "Cyan1"))))
  '(variable-pitch ((t nil))))
@@ -105,18 +115,6 @@
 (add-to-list 'load-path                   "~/.config/emacs/libs/psc-ide-emacs/")
 (add-to-list 'Info-default-directory-list "~/.config/emacs/libs/psc-ide-emacs/")
 
-(require 'mu4e)
-
-(require 'purescript-mode-autoloads)
-
-(require 'psc-ide)
-
-(add-hook 'purescript-mode-hook
-  (lambda ()
-    (psc-ide-mode)
-    (company-mode)
-    (turn-on-purescript-indentation)))
-
 (require 'agda2-mode)
 
 ;; (require 'lsp)
@@ -131,6 +129,7 @@
 ;;;; Captain Hook
 
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-set-key (kbd "C-x r v") 'revert-buffer)
 
 (add-hook 'text-mode-hook
   (lambda ()
@@ -215,18 +214,28 @@
 
 ;;; ERC
 (require 'erc)
-;; (erc :server "irc.freenode.net" :port 6667 :nick "fredefox")
-;; (setq erc-autojoin-channels-alist
-;;       '(("#data.coop" "#haskell" "#Agda")))
+(erc-autojoin-mode)
 
+;;; Yaml
+(require 'yaml-mode)
+(define-key yaml-mode-map "|" nil)
+(define-key yaml-mode-map ">" nil)
+(define-key yaml-mode-map "-" nil)
+(define-key yaml-mode-map "." nil)
+
+;;; Enable disabled stuff
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+;;; Ruby
 (setq ruby-deep-indent-paren nil)
 (setq ruby-use-smie nil)
 
+;;; Jira
 ;; org-jira [https://github.com/ahungry/org-jira]
 (require 'org-jira)
 (setq jiralib-url "https://zendesk.atlassian.net")
 
-;;; Jira
 (add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'jira)
 (define-key jira-mode-map (kbd "C-c j") 'jira-command-map)
