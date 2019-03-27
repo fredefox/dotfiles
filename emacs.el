@@ -4,8 +4,6 @@
 ;;; Code:
 (require 'package)
 (add-to-list 'package-archives
-             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
              '("MELPA" . "https://melpa.org/packages/") t)
 
 (package-initialize)
@@ -60,7 +58,7 @@
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
    (quote
-    (image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+    (rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
@@ -71,9 +69,9 @@
  '(scroll-margin 0)
  '(select-enable-clipboard t)
  '(send-mail-function (quote smtpmail-send-it))
+ '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 1)
  '(show-paren-mode t)
- '(set-mark-command-repeat-pop t)
  '(show-trailing-whitespace t)
  '(shr-width 80)
  '(split-window-keep-point nil)
@@ -185,7 +183,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
-(require 'haskell-mode-autoloads)
+(require 'haskell)
 
 ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 
