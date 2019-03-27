@@ -59,22 +59,26 @@
  '(package-selected-packages
    (quote
     (rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+ '(projectile-globally-ignored-files (quote ("TAGS" "vendor/bundle/*")))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
- '(purescript-mode-hook (quote (turn-on-purescript-indentation)) t)
+ '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
+ '(ruby-align-chained-calls 1)
+ '(ruby-align-to-stmt-keywords t)
+ '(ruby-insert-encoding-magic-comment nil)
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(scroll-margin 0)
  '(select-enable-clipboard t)
  '(send-mail-function (quote smtpmail-send-it))
  '(set-mark-command-repeat-pop t)
- '(sgml-basic-offset 1)
+ '(sgml-basic-offset 2)
  '(show-paren-mode t)
- '(show-trailing-whitespace t)
  '(shr-width 80)
  '(split-window-keep-point nil)
+ '(tags-add-tables t)
  '(temp-buffer-resize-mode nil)
  '(tool-bar-mode nil)
  '(vc-follow-symlinks nil)
@@ -84,16 +88,22 @@
 
 ;;;; Faces
 
+;;; Needed on MAC because we're not using Xresources :(
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(agda2-highlight-unsolved-constraint-face ((t (:background "dark orange"))))
- '(agda2-highlight-unsolved-meta-face ((t (:background "dark orange"))))
- '(font-lock-comment-face ((t (:foreground "chocolate1"))))
- '(font-lock-keyword-face ((t (:foreground "Cyan1"))))
- '(variable-pitch ((t nil))))
+ '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro"))))
+ '(custom-group-tag ((t (:inherit variable-pitch :foreground "light blue" :weight bold :height 1))))
+ '(custom-group-tag-1 ((t (:inherit variable-pitch :foreground "pink" :weight bold :height 1))))
+ '(markdown-header-face-1 ((t (:inherit bold :foreground "#4f97d7" :height 1.0))))
+ '(markdown-header-face-2 ((t (:inherit bold :foreground "#2d9574" :height 1.0))))
+ '(markdown-header-face-3 ((t (:foreground "#67b11d" :weight normal :height 1.0))))
+ '(shadow ((t (:foreground "grey70"))))
+ '(variable-pitch ((t nil)))
+ '(whitespace-trailing ((t (:background "#542b2e")))))
 
 
 ;;;; Additional packages
@@ -130,10 +140,10 @@
 (global-set-key (kbd "C-x r v") 'revert-buffer)
 
 (add-hook 'text-mode-hook
-  (lambda ()
-    (word-wrap-mode)
-    (recentf-mode)
-    (flyspell-mode)))
+          (lambda ()
+            (toggle-word-wrap 1)
+            (recentf-mode)
+            (flyspell-mode)))
 
 (add-hook 'prog-mode-hook
           (lambda ()
@@ -163,7 +173,7 @@
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-(setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.svg"))
+(setq dashboard-startup-banner (substitute-in-file-name "$HOME/.local/share/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
 ;;;; Miscelaneous
@@ -183,59 +193,54 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
-(require 'haskell)
 
-;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+;;;; Ruby
+(require 'ruby-mode)
 
-
-;;;; mu4e
-(setq send-mail-function 'smtpmail-send-it
-      user-mail-address "fhi.1990@gmail.com"
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      ;; smtpmail-stream-type  'starttls
-      smtpmail-smtp-service 587)
-
-;; Now I set a list of
-;; (defvar my-mu4e-account-alist
-;;   '(("Gmail"
-;;      (mu4e-sent-folder "/Gmail/sent")
-;;      (user-mail-address "fhi.1990@gmail.com")
-;;      (smtpmail-smtp-user "fhi.1990")
-;;      (smtpmail-local-domain "gmail.com")
-;;      (smtpmail-default-smtp-server "smtp.gmail.com")
-;;      (smtpmail-smtp-server "smtp.gmail.com")
-;;      (smtpmail-smtp-service 587)
-;;      )
-;;      ;; Include any other accounts here ...
-;;     ))
-
-;;; ERC
-(require 'erc)
-(erc-autojoin-mode)
-
-;;; Yaml
-(require 'yaml-mode)
-(define-key yaml-mode-map "|" nil)
-(define-key yaml-mode-map ">" nil)
-(define-key yaml-mode-map "-" nil)
-(define-key yaml-mode-map "." nil)
-
-;;; Enable disabled stuff
-(put 'set-goal-column 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-
-;;; Ruby
-(setq ruby-deep-indent-paren nil)
 (setq ruby-use-smie nil)
+(setq ruby-deep-indent-paren nil)
+(setq ruby-align-to-stmt-keywords t)
 
-;;; Jira
+(add-to-list 'load-path "~/.config/emacs/git/spark")
+(add-to-list 'load-path "~/.config/emacs/git/chruby")
+
+(require 'chruby)
+
+(setq select-enable-clipboard t)
+
+(add-hook 'ruby-mode-hook '(lambda ()
+  (global-set-key (kbd "C-c C-M-n") 'ruby-forward-sexp)
+  (global-set-key (kbd "C-c C-M-p") 'ruby-backward-sexp)))
+
+  (defun sql-beautify-region (beg end)
+    "Beautify SQL in region between beg and END.
+Dependency:
+npm i -g sql-formatter-cli"
+    (interactive "r")
+    (save-excursion
+      (shell-command-on-region beg end "sql-formatter-cli" nil t)))
+  (defun sql-beautify-buffer ()
+    "Beautify SQL in buffer."
+    (interactive)
+    (sql-beautify-region (point-min) (point-max)))
+  (add-hook 'sql-mode-hook '(lambda ()
+                              ;; beautify region or buffer
+                              (local-set-key (kbd "C-c t") 'sql-beautify-region)))
+(put 'dired-find-alternate-file 'disabled nil)
+
 ;; org-jira [https://github.com/ahungry/org-jira]
 (require 'org-jira)
 (setq jiralib-url "https://zendesk.atlassian.net")
 
+;;; Jira
 (add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'jira)
 (define-key jira-mode-map (kbd "C-c j") 'jira-command-map)
 
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;;; init.el ends here
+(put 'set-goal-column 'disabled nil)
