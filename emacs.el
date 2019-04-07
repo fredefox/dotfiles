@@ -116,13 +116,24 @@
     "agda-mode"
     "psc-ide-emacs"))
 
-;; TODO: Use the following pattern
-;; (substitute-in-file-name "$XDG_DATA_HOME/emacs/libs/%s")
+(setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
+(setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
+(setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache"))
 
-(add-to-list 'load-path                   "~/.config/emacs/libs/agda-mode/")
-(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/agda-mode/")
-(add-to-list 'load-path                   "~/.config/emacs/libs/psc-ide-emacs/")
-(add-to-list 'Info-default-directory-list "~/.config/emacs/libs/psc-ide-emacs/")
+;; (let* ((additional-packages
+;;        (list
+;;         "agda-mode"
+;;         "psc-ide-emacs"))
+;;       (libs (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/libs"))
+;;       (add-package (lambda (package)
+;;                      (let ((p (format "%s/%s" libs package)))
+;;                        (print p)
+;;                        (add-to-list 'load-path p)
+;;                        (add-to-list 'Info-default-directory-list p)))))
+;;   (mapc add-package additional-packages))
+
+(let ((default-directory (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp")))
+  (normal-top-level-add-subdirs-to-load-path))
 
 (require 'agda2-mode)
 
@@ -175,6 +186,7 @@
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
+;; FIXME: My MAC is not loading the place where I set `XDG_DATA_HOME`
 (setq dashboard-startup-banner (substitute-in-file-name "$HOME/.local/share/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
@@ -195,6 +207,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
+(require 'haskell)
 
 ;;;; Ruby
 (require 'ruby-mode)
