@@ -16,11 +16,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(agda2-highlight-face-groups (quote default-faces))
  '(agda2-program-args nil)
  '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(company-tooltip-minimum-width 35)
+ '(custom-safe-themes
+   (quote
+    ("1c643a2d75eb06e39c552005eeb8b4cf52deccd895eaab3880fb299ae6bc41b4" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -35,6 +38,7 @@
  '(erc-port 6667)
  '(erc-prompt-for-password nil)
  '(erc-server "irc.freenode.net")
+ '(exec-path-from-shell-check-startup-files nil)
  '(flycheck-emacs-lisp-load-path (quote inherit))
  '(flycheck-ghc-language-extensions
    (quote
@@ -42,6 +46,7 @@
  '(flycheck-hlint-language-extensions
    (quote
     ("UnicodeSyntax" "TypeApplications" "OverloadedStrings")))
+ '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
  '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
@@ -58,8 +63,11 @@
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
    (quote
-    (rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
- '(projectile-globally-ignored-files (quote ("TAGS" "vendor/bundle/*")))
+    (fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
+ '(projectile-globally-ignored-files (quote ("/TAGS" "/vendor" "/.bundle" "/node_modules")))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path (quote ("~/git/")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
@@ -90,21 +98,14 @@
 
 ;;; Needed on MAC because we're not using Xresources :(
 
+(load-theme 'monokai-dark)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro"))))
- '(custom-group-tag ((t (:inherit variable-pitch :foreground "light blue" :weight bold :height 1))))
- '(custom-group-tag-1 ((t (:inherit variable-pitch :foreground "pink" :weight bold :height 1))))
- '(markdown-header-face-1 ((t (:inherit bold :foreground "#4f97d7" :height 1.0))))
- '(markdown-header-face-2 ((t (:inherit bold :foreground "#2d9574" :height 1.0))))
- '(markdown-header-face-3 ((t (:foreground "#67b11d" :weight normal :height 1.0))))
- '(shadow ((t (:foreground "grey70"))))
- '(variable-pitch ((t nil)))
- '(whitespace-trailing ((t (:background "#542b2e")))))
-
+ )
 
 ;;;; Additional packages
 
@@ -137,6 +138,8 @@
 ;;;; Captain Hook
 
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-unset-key (kbd "s-q"))
+
 (global-set-key (kbd "C-x r v") 'revert-buffer)
 
 (add-hook 'text-mode-hook
@@ -172,7 +175,6 @@
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 (setq dashboard-startup-banner (substitute-in-file-name "$HOME/.local/share/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
@@ -197,7 +199,10 @@
 ;;;; Ruby
 (require 'ruby-mode)
 
-(setq ruby-use-smie nil)
+;; I'm confused about the less worse option here.  I think the best
+;; option is to use smie (the default).
+(setq ruby-use-smie 1)
+
 (setq ruby-deep-indent-paren nil)
 (setq ruby-align-to-stmt-keywords t)
 
@@ -239,8 +244,8 @@ npm i -g sql-formatter-cli"
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
 ;;; init.el ends here
-(put 'set-goal-column 'disabled nil)
