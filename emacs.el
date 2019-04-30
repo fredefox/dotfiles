@@ -28,9 +28,8 @@
  '(dired-isearch-filenames t)
  '(display-buffer-alist
    (quote
-    ((".*Man.*" display-buffer-same-window)
-     ("Buffer List" display-buffer-same-window
-     ("magit-revision:" display-buffer-same-window)))))
+    (("*Man*" display-buffer-same-window)
+     ("*Buffer List*" display-buffer-same-window))))
  '(echo-keystrokes 1e-10)
  '(erc-autojoin-channels-alist (quote (("irc.freenode.net" "#haskell" "#data.coop"))))
  '(erc-autojoin-mode t)
@@ -42,14 +41,14 @@
  '(flycheck-emacs-lisp-load-path (quote inherit))
  '(flycheck-ghc-language-extensions
    (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings")))
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase")))
  '(flycheck-hlint-language-extensions
    (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings")))
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase")))
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
- '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications")))
+ '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications" "LambdaCase")))
  '(haskell-tags-on-save t)
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
@@ -63,7 +62,7 @@
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
    (quote
-    (fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+    (quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
@@ -76,6 +75,9 @@
  '(ruby-align-chained-calls 1)
  '(ruby-align-to-stmt-keywords t)
  '(ruby-insert-encoding-magic-comment nil)
+ '(safe-local-variable-values
+   (quote
+    ((git-commit-major-mode . git-commit-elisp-text-mode))))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(scroll-margin 0)
@@ -108,13 +110,15 @@
  )
 
 ;;;; Additional packages
+;;;; Maybe we should use qelpa to mangage these.
 
-(defvar extra-libs-root "~/.config/emacs/libs")
+(defvar extra-libs-root "~/.config/emacs/lisp")
 
 (defvar additional-packages
   (list
     "agda-mode"
-    "psc-ide-emacs"))
+    "psc-ide-emacs"
+    "jira"))
 
 (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
 (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
@@ -204,8 +208,12 @@
 (global-unset-key (kbd "C-z"))
 
 ;;;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(require 'magit)
+(global-magit-file-mode 1)
+(global-set-key (kbd "C-c g g") 'magit-dispatch)
+(global-set-key (kbd "C-c g s") 'magit-status)
+(global-set-key (kbd "C-c g f") 'magit-file-dispatch)
+(global-set-key (kbd "C-c g b") 'magit-blame)
 
 (require 'haskell)
 
@@ -251,9 +259,8 @@ npm i -g sql-formatter-cli"
 (setq jiralib-url "https://zendesk.atlassian.net")
 
 ;;; Jira
-(add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'jira)
-(define-key jira-mode-map (kbd "C-c j") 'jira-command-map)
+(global-set-key (kbd "C-c j") 'jira)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
