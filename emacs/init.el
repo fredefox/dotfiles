@@ -68,12 +68,12 @@
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
  '(projectile-globally-ignored-files (quote ("/TAGS" "/vendor" "/.bundle" "/node_modules")))
  '(projectile-mode t nil (projectile))
- '(projectile-project-search-path (quote ("~/git/")))
+ '(projectile-project-search-path (quote ("~/git")))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
- '(ruby-align-chained-calls 1)
  '(ruby-align-to-stmt-keywords t)
+ '(ruby-align-chained-calls t)
  '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values
    (quote
@@ -96,11 +96,25 @@
  '(window-resize-pixelwise t))
 
 
-;;;; Faces
+;;;; MAC setup
+
+(defun set-xdg-variables ()
+  "Set the XDG base directory variables to sane defaults."
+  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
+  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
+  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
+
+(defun x11-shim ()
+  "Replace some behaviour otherwise handled by other system services."
+  (load-theme 'monokai-dark)
+  (set-xdg-variables))
 
 ;;; Needed on MAC because we're not using Xresources :(
+(if (not (eq window-system 'x))
+    (x11-shim))
 
-(load-theme 'monokai-dark)
+
+;;;; Faces
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -119,10 +133,6 @@
     "agda-mode"
     "psc-ide-emacs"
     "jira"))
-
-(setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
-(setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
-(setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache"))
 
 ;; (let* ((additional-packages
 ;;        (list
@@ -159,9 +169,13 @@
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (toggle-word-wrap 1)
+            (toggle-word-wrap t)
             (recentf-mode)
             (flyspell-mode)))
+
+(add-hook 'html-mode-hook
+          (lambda ()
+            (flyspell-mode -1)))
 
 (add-hook 'prog-mode-hook
           (lambda ()
@@ -169,8 +183,10 @@
             (flycheck-mode)))
 ;; I think this breaks e.g. the color-picker
 ; (add-hook 'text-mode-hook 'form-feed-mode)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'ruby-mode-hook (lambda() (subword-mode 1)))
+(add-hook 'haskell-mode-hook (lambda ()
+                               (subword-mode t)
+                               (interactive-haskell-mode t)))
+(add-hook 'ruby-mode-hook (lambda () (subword-mode t)))
 ;; global-company-mode keeps recentering the point on the screen for
 ;; some reason
 ; (add-hook 'after-init-hook 'global-company-mode)
@@ -190,8 +206,7 @@
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
-;; FIXME: My MAC is not loading the place where I set `XDG_DATA_HOME`
-(setq dashboard-startup-banner (substitute-in-file-name "$HOME/.local/share/emacs/banner.png"))
+(setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
 ;;;; Miscelaneous
@@ -209,7 +224,7 @@
 
 ;;;; Magit
 (require 'magit)
-(global-magit-file-mode 1)
+(global-magit-file-mode t)
 (global-set-key (kbd "C-c g g") 'magit-dispatch)
 (global-set-key (kbd "C-c g s") 'magit-status)
 (global-set-key (kbd "C-c g f") 'magit-file-dispatch)
@@ -222,7 +237,7 @@
 
 ;; I'm confused about the less worse option here.  I think the best
 ;; option is to use smie (the default).
-(setq ruby-use-smie 1)
+(setq ruby-use-smie t)
 
 (setq ruby-deep-indent-paren nil)
 (setq ruby-align-to-stmt-keywords t)
