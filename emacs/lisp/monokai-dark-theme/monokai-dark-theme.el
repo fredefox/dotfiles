@@ -4,6 +4,7 @@
 ;;;
 ;;; Commentary:
 ;;; Code:
+;; (provide 'monokai-dark-theme)
 (deftheme monokai-dark
   "Created 2019-03-28 by fredefox.")
 

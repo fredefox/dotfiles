@@ -96,33 +96,6 @@
  '(window-resize-pixelwise t))
 
 
-;;;; MAC setup
-
-(defun set-xdg-variables ()
-  "Set the XDG base directory variables to sane defaults."
-  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
-  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
-  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
-
-(defun x11-shim ()
-  "Replace some behaviour otherwise handled by other system services."
-  (load-theme 'monokai-dark)
-  (set-xdg-variables))
-
-;;; Needed on MAC because we're not using Xresources :(
-(if (not (eq window-system 'x))
-    (x11-shim))
-
-
-;;;; Faces
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;;;; Additional packages
 ;;;; Maybe we should use qelpa to mangage these.
 
@@ -151,6 +124,9 @@
 
 (require 'agda2-mode)
 
+;; TODO Why is this not handled by the magic with the load-path above?
+(load-file "lisp/monokai-dark-theme/monokai-dark-theme.el")
+
 ;; (require 'lsp)
 ;; Shame! `lsp-ui` is emitting:
 ;; Eager macro-expansion failure: (wrong-type-argument listp kind)
@@ -158,6 +134,34 @@
 ;; (require 'lsp-haskell)
 ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 ;; (add-hook 'haskell-mode-hook #'lsp)
+
+
+;;;; MAC setup
+
+(defun set-xdg-variables ()
+  "Set the XDG base directory variables to sane defaults."
+  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
+  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
+  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
+
+(defun x11-shim ()
+  "Replace some behaviour otherwise handled by other system services."
+  (load-theme 'monokai-dark)
+  (set-xdg-variables))
+
+;;; Needed on MAC because we're not using Xresources :(
+(if (not (eq window-system 'x))
+    (x11-shim))
+
+
+;;;; Faces
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 
 ;;;; Captain Hook
