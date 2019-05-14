@@ -24,7 +24,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("1c643a2d75eb06e39c552005eeb8b4cf52deccd895eaab3880fb299ae6bc41b4" default)))
+    ("c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -105,12 +105,19 @@
   (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
   (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
 
+(defun load-monokai ()
+  "Load the monokai dark theme."
+  (add-to-list 'custom-theme-load-path
+             (substitute-in-file-name
+              "$XDG_CONFIG_HOME/emacs/lisp/monokai-dark-theme/"))
+  (load-theme 'monokai-dark))
+
 (defun x11-shim ()
   "Replace some behaviour otherwise handled by other system services."
   ;; (load-theme 'monokai-dark)
   ;; TODO Why is this not handled by the magic with the load-path above?
   (set-xdg-variables)
-  (load-file (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/monokai-dark-theme/monokai-dark-theme.el")))
+  (load-monokai))
 
 ;;; Needed on MAC because we're not using Xresources :(
 (if (not (eq window-system 'x))
@@ -123,10 +130,12 @@
 (defvar extra-libs-root "~/.config/emacs/lisp")
 
 (defvar additional-packages
-  (list
-    "agda-mode"
-    "psc-ide-emacs"
-    "jira"))
+  '(("agda-mode"
+     "psc-ide-emacs"
+     "org-jira"
+     "jira"
+     "spark"
+     "chruby")))
 
 ;; (let* ((additional-packages
 ;;        (list
@@ -140,8 +149,14 @@
 ;;                        (add-to-list 'Info-default-directory-list p)))))
 ;;   (mapc add-package additional-packages))
 
-(let ((default-directory (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp")))
+(let ((default-directory (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/")))
   (normal-top-level-add-subdirs-to-load-path))
+
+(add-to-list 'custom-theme-load-path
+             (substitute-in-file-name
+              "$XDG_CONFIG_HOME/emacs/lisp/inheritance-theme/"))
+
+(load-theme 'inheritance)
 
 (require 'agda2-mode)
 
@@ -162,18 +177,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro"))))
  '(font-lock-comment-face ((t (:foreground "chocolate1"))))
- '(ido-indicator ((t (:inherit highlight :width condensed))))
- '(ido-only-match ((t (:inherit highlight))))
- '(ido-subdir ((t (:inherit shadow))))
- '(js2-error ((t (:inherit error))))
- '(js2-external-variable ((t (:inherit font-lock-builtin-face))))
- '(js2-function-param ((t (:inherit font-lock-variable-name-face))))
- '(js2-instance-member ((t (:inherit font-lock-variable-name-face))))
- '(js2-jsdoc-html-tag-delimiter ((t (:inherit basic))))
- '(js2-jsdoc-type ((t (:inherit font-lock-type-face))))
- '(js2-warning ((t (:inherit warning))))
  '(region ((t (:background "#285b89"))))
  '(success ((t (:foreground "Green3" :weight bold)))))
 
@@ -262,45 +266,42 @@
 (setq ruby-deep-indent-paren nil)
 (setq ruby-align-to-stmt-keywords t)
 
-(add-to-list 'load-path "~/.config/emacs/git/spark")
-(add-to-list 'load-path "~/.config/emacs/git/chruby")
-
-(require 'chruby)
-
 (setq select-enable-clipboard t)
 
 (add-hook 'ruby-mode-hook '(lambda ()
   (global-set-key (kbd "C-c C-M-n") 'ruby-forward-sexp)
   (global-set-key (kbd "C-c C-M-p") 'ruby-backward-sexp)))
 
-  (defun sql-beautify-region (beg end)
-    "Beautify SQL in region between beg and END.
+(defun sql-beautify-region (beg end)
+  "Beautify SQL in region between BEG and END.
 Dependency:
 npm i -g sql-formatter-cli"
-    (interactive "r")
-    (save-excursion
-      (shell-command-on-region beg end "sql-formatter-cli" nil t)))
-  (defun sql-beautify-buffer ()
+  (interactive "r")
+  (save-excursion
+    (shell-command-on-region beg end "sql-formatter-cli" nil t)))
+
+(defun sql-beautify-buffer ()
     "Beautify SQL in buffer."
     (interactive)
     (sql-beautify-region (point-min) (point-max)))
-  (add-hook 'sql-mode-hook '(lambda ()
-                              ;; beautify region or buffer
-                              (local-set-key (kbd "C-c t") 'sql-beautify-region)))
+
+(add-hook 'sql-mode-hook '(lambda ()
+                            ;; beautify region or buffer
+                            (local-set-key (kbd "C-c t") 'sql-beautify-region)))
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;; org-jira [https://github.com/ahungry/org-jira]
-(require 'org-jira)
-(setq jiralib-url "https://zendesk.atlassian.net")
+;; (require 'org-jira)
+;; (setq jiralib-url "https://zendesk.atlassian.net")
 
 ;;; Jira
-(require 'jira)
+;; (require 'jira)
 (global-set-key (kbd "C-c j") 'jira)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
-(when (memq window-system '(mac ns x))
+(when (memq window-system '(mac))
   (exec-path-from-shell-initialize))
 
 ;;; init.el ends here
