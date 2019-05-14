@@ -21,6 +21,7 @@
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(company-tooltip-minimum-width 35)
+ '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
     ("1c643a2d75eb06e39c552005eeb8b4cf52deccd895eaab3880fb299ae6bc41b4" default)))
@@ -39,20 +40,19 @@
  '(erc-server "irc.freenode.net")
  '(exec-path-from-shell-check-startup-files nil)
  '(flycheck-emacs-lisp-load-path (quote inherit))
- '(flycheck-ghc-language-extensions
-   (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase")))
- '(flycheck-hlint-language-extensions
-   (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase")))
+ '(flycheck-ghc-language-extensions haskell-language-extensions)
+ '(flycheck-hlint-language-extensions haskell-language-extensions)
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
- '(haskell-language-extensions (quote ("UnicodeSyntax" "TypeApplications" "LambdaCase")))
+ '(haskell-language-extensions
+   (quote
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving")))
  '(haskell-tags-on-save t)
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
  '(js-indent-level 2)
+ '(js2-basic-offset 2)
  '(line-move-visual nil)
  '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
  '(magit-popup-display-buffer-action nil)
@@ -62,7 +62,7 @@
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
    (quote
-    (quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+    (prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
@@ -72,8 +72,9 @@
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
- '(ruby-align-to-stmt-keywords t)
  '(ruby-align-chained-calls t)
+ '(ruby-align-to-stmt-keywords t)
+ '(ruby-chained-calls t)
  '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values
    (quote
@@ -94,6 +95,26 @@
  '(vc-follow-symlinks nil)
  '(window-combination-resize t)
  '(window-resize-pixelwise t))
+
+
+;;;; MAC setup
+
+(defun set-xdg-variables ()
+  "Set the XDG base directory variables to sane defaults."
+  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
+  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
+  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
+
+(defun x11-shim ()
+  "Replace some behaviour otherwise handled by other system services."
+  ;; (load-theme 'monokai-dark)
+  ;; TODO Why is this not handled by the magic with the load-path above?
+  (set-xdg-variables)
+  (load-file (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/monokai-dark-theme/monokai-dark-theme.el")))
+
+;;; Needed on MAC because we're not using Xresources :(
+(if (not (eq window-system 'x))
+    (x11-shim))
 
 
 ;;;; Additional packages
@@ -124,9 +145,6 @@
 
 (require 'agda2-mode)
 
-;; TODO Why is this not handled by the magic with the load-path above?
-(load-file "lisp/monokai-dark-theme/monokai-dark-theme.el")
-
 ;; (require 'lsp)
 ;; Shame! `lsp-ui` is emitting:
 ;; Eager macro-expansion failure: (wrong-type-argument listp kind)
@@ -135,23 +153,6 @@
 ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 ;; (add-hook 'haskell-mode-hook #'lsp)
 
-
-;;;; MAC setup
-
-(defun set-xdg-variables ()
-  "Set the XDG base directory variables to sane defaults."
-  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
-  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
-  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
-
-(defun x11-shim ()
-  "Replace some behaviour otherwise handled by other system services."
-  (load-theme 'monokai-dark)
-  (set-xdg-variables))
-
-;;; Needed on MAC because we're not using Xresources :(
-(if (not (eq window-system 'x))
-    (x11-shim))
 
 
 ;;;; Faces
@@ -161,7 +162,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro"))))
+ '(font-lock-comment-face ((t (:foreground "chocolate1"))))
+ '(ido-indicator ((t (:inherit highlight :width condensed))))
+ '(ido-only-match ((t (:inherit highlight))))
+ '(ido-subdir ((t (:inherit shadow))))
+ '(js2-error ((t (:inherit error))))
+ '(js2-external-variable ((t (:inherit font-lock-builtin-face))))
+ '(js2-function-param ((t (:inherit font-lock-variable-name-face))))
+ '(js2-instance-member ((t (:inherit font-lock-variable-name-face))))
+ '(js2-jsdoc-html-tag-delimiter ((t (:inherit basic))))
+ '(js2-jsdoc-type ((t (:inherit font-lock-type-face))))
+ '(js2-warning ((t (:inherit warning))))
+ '(region ((t (:background "#285b89"))))
+ '(success ((t (:foreground "Green3" :weight bold)))))
 
 
 ;;;; Captain Hook
@@ -197,6 +211,8 @@
 ;; (add-hook 'after-init-hook 'flycheck-mode)
 
 ;; ;; (require 'haskell-unicode-input-method)
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 
 ;;;; Projectile
