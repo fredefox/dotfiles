@@ -130,7 +130,7 @@
 
 (defvar additional-packages
       '((agda2-mode . "agda-mode/")
-        (psc-ide . "psc-ide-emacs/")
+        (psc-ide . "psc-ide/")
         ;; (org-jira . "org-jira/")
         (jira . "jira/")
         (spark . "spark/")
