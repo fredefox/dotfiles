@@ -24,7 +24,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" default)))
+    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
