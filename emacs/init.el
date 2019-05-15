@@ -24,7 +24,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
+    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -126,39 +126,33 @@
 
 ;;;; Additional packages
 ;;;; Maybe we should use qelpa to mangage these.
-
-(defvar extra-libs-root "~/.config/emacs/lisp")
+(defvar extra-libs-root (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/"))
 
 (defvar additional-packages
-  '(("agda-mode"
-     "psc-ide-emacs"
-     "org-jira"
-     "jira"
-     "spark"
-     "chruby")))
+      '((agda2-mode . "agda-mode/")
+        (psc-ide . "psc-ide-emacs/")
+        ;; (org-jira . "org-jira/")
+        (jira . "jira/")
+        (spark . "spark/")
+        (chruby . "chruby/")))
 
-;; (let* ((additional-packages
-;;        (list
-;;         "agda-mode"
-;;         "psc-ide-emacs"))
-;;       (libs (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/libs"))
-;;       (add-package (lambda (package)
-;;                      (let ((p (format "%s/%s" libs package)))
-;;                        (print p)
-;;                        (add-to-list 'load-path p)
-;;                        (add-to-list 'Info-default-directory-list p)))))
-;;   (mapc add-package additional-packages))
+(defun load-additional-packages ()
+  "Load the additional packages as specified by additional-packages."
+  (dolist (spec additional-packages)
+  (let* ((package (car spec))
+         (package-path (cdr spec))
+         (path (concat extra-libs-root package-path)))
+    (add-to-list 'load-path path)
+    (require package))))
 
-(let ((default-directory (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/")))
-  (normal-top-level-add-subdirs-to-load-path))
+(load-additional-packages)
 
-(add-to-list 'custom-theme-load-path
-             (substitute-in-file-name
-              "$XDG_CONFIG_HOME/emacs/lisp/inheritance-theme/"))
+(defun load-additional-themes ()
+  "Load additional themes."
+  (add-to-list 'custom-theme-load-path (concat extra-libs-root "inhertitance-theme/"))
+  (load-theme 'inheritance))
 
-(load-theme 'inheritance)
-
-(require 'agda2-mode)
+(load-additional-themes)
 
 ;; (require 'lsp)
 ;; Shame! `lsp-ui` is emitting:
