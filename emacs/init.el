@@ -149,7 +149,7 @@
 
 (defun load-additional-themes ()
   "Load additional themes."
-  (add-to-list 'custom-theme-load-path (concat extra-libs-root "inhertitance-theme/"))
+  (add-to-list 'custom-theme-load-path (concat extra-libs-root "inheritance-theme/"))
   (load-theme 'inheritance))
 
 (load-additional-themes)
