@@ -16,6 +16,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Buffer-menu-name-width 30)
  '(agda2-program-args nil)
  '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
  '(blink-cursor-mode nil)
@@ -24,7 +25,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
+    ("d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -42,12 +43,27 @@
  '(flycheck-emacs-lisp-load-path (quote inherit))
  '(flycheck-ghc-language-extensions haskell-language-extensions)
  '(flycheck-hlint-language-extensions haskell-language-extensions)
+ '(forge-alist
+   (quote
+    (("github.com" "api.github.com" "github.com" forge-github-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit*-repository)
+     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
+     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
+     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
+     ("git.data.coop" "git.data.coop/api/v1" "git.data.coop" forge-gitea-repository))))
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
  '(haskell-language-extensions
    (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving")))
+    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving" "ExplicitForAll")))
  '(haskell-tags-on-save t)
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
@@ -68,7 +84,7 @@
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
  '(projectile-globally-ignored-files (quote ("/TAGS" "/vendor" "/.bundle" "/node_modules")))
  '(projectile-mode t nil (projectile))
- '(projectile-project-search-path (quote ("~/git")))
+ '(projectile-project-search-path (seq-filter 'file-directory-p (seq-drop (directory-files "~/git" t) 2)))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
@@ -78,7 +94,8 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values
    (quote
-    ((git-commit-major-mode . git-commit-elisp-text-mode))))
+    ((magit-refresh-buffers)
+     (git-commit-major-mode . git-commit-elisp-text-mode))))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(scroll-margin 0)
@@ -171,6 +188,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(fixed-pitch-serif ((t (:family "Monospace Serif"))))
  '(font-lock-comment-face ((t (:foreground "chocolate1"))))
  '(region ((t (:background "#285b89"))))
  '(success ((t (:foreground "Green3" :weight bold)))))
@@ -295,7 +313,13 @@ npm i -g sql-formatter-cli"
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
-(when (memq window-system '(mac))
+(when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+(require 'flycheck)
+(define-key flycheck-mode-map flycheck-keymap-prefix nil)
+(setq flycheck-keymap-prefix (kbd "C-c f"))
+(define-key flycheck-mode-map flycheck-keymap-prefix
+            flycheck-command-map)
 
 ;;; init.el ends here
