@@ -24,7 +24,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
+    ("aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -120,7 +120,7 @@
   (load-monokai))
 
 ;;; Needed on MAC because we're not using Xresources :(
-(if (not (eq window-system 'x))
+(if (eq window-system 'mac)
     (x11-shim))
 
 
