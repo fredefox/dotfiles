@@ -11,6 +11,11 @@
 
 ;;; Custom
 
+(defvar
+  haskell-language-extensions
+  (quote ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving" "ExplicitForAll" "ScopedTypeVariables"))
+  "List of enabled Haskell language extensions.")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -25,7 +30,7 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
+    ("224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -41,8 +46,8 @@
  '(erc-server "irc.freenode.net")
  '(exec-path-from-shell-check-startup-files nil)
  '(flycheck-emacs-lisp-load-path (quote inherit))
- '(flycheck-ghc-language-extensions haskell-language-extensions)
- '(flycheck-hlint-language-extensions haskell-language-extensions)
+ '(flycheck-ghc-language-extensions (symbol-value (quote haskell-language-extensions)))
+ '(flycheck-hlint-language-extensions (symbol-value (quote haskell-language-extensions)))
  '(forge-alist
    (quote
     (("github.com" "api.github.com" "github.com" forge-github-repository)
@@ -61,9 +66,7 @@
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
- '(haskell-language-extensions
-   (quote
-    ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving" "ExplicitForAll")))
+ '(haskell-language-extensions (symbol-value (quote haskell-language-extensions)))
  '(haskell-tags-on-save t)
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
@@ -81,10 +84,15 @@
     (prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules")))
+    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor")))
  '(projectile-globally-ignored-files (quote ("/TAGS" "/vendor" "/.bundle" "/node_modules")))
  '(projectile-mode t nil (projectile))
- '(projectile-project-search-path (seq-filter 'file-directory-p (seq-drop (directory-files "~/git" t) 2)))
+ '(projectile-project-search-path
+   (seq-filter
+    (quote file-directory-p)
+    (seq-drop
+     (directory-files "~/git" t)
+     2)))
  '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
@@ -94,7 +102,15 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values
    (quote
-    ((magit-refresh-buffers)
+    ((setq magit-refresh-verbose 1)
+     (eval remove-hook
+           (quote magit-refs-sections-hook)
+           (quote magit-insert-tags))
+     (eval
+      (remove-hook
+       (quote magit-refs-sections-hook)
+       (quote magit-insert-tags)))
+     (magit-refresh-buffers)
      (git-commit-major-mode . git-commit-elisp-text-mode))))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
@@ -137,7 +153,7 @@
   (load-monokai))
 
 ;;; Needed on MAC because we're not using Xresources :(
-(if (eq window-system 'mac)
+(if (eq window-system 'ns)
     (x11-shim))
 
 
@@ -230,6 +246,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
+(add-hook
+ 'js-mode-hook
+ (lambda ()
+   (subword-mode t)))
+
 
 ;;;; Projectile
 (require 'projectile)
@@ -245,16 +266,25 @@
 (setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
+(add-hook 'dashboard-mode-hook
+          (lambda ()
+             (local-set-key "n" 'dashboard-next-line)
+             (local-set-key "p" 'dashboard-previous-line)))
+
 ;;;; Miscelaneous
 (setq-default indent-tabs-mode nil)
 
-(setq ring-bell-function
-      (lambda ()
-        (let ((orig-bg (face-background 'mode-line)))
-          (set-face-background 'mode-line (face-attribute 'error :foreground))
-          (run-with-idle-timer 0.1 nil
-                               (lambda (bg)
-                                 (set-face-background 'mode-line bg)) orig-bg))))
+(defun mode-line-bell-set-background (bg)
+  "Set the background color of the mode-line to BG."
+  (set-face-background 'mode-line bg))
+
+(defun mode-line-bell-blink ()
+  "Briefly change the color of the mode-line."
+  (let ((orig-bg (face-background 'mode-line)))
+    (mode-line-bell-set-background (face-attribute 'error :foreground))
+    (run-with-idle-timer 0.1 nil 'mode-line-bell-set-background orig-bg)))
+
+(setq ring-bell-function 'mode-line-bell-blink)
 
 (global-unset-key (kbd "C-z"))
 
@@ -281,8 +311,9 @@
 (setq select-enable-clipboard t)
 
 (add-hook 'ruby-mode-hook '(lambda ()
-  (global-set-key (kbd "C-c C-M-n") 'ruby-forward-sexp)
-  (global-set-key (kbd "C-c C-M-p") 'ruby-backward-sexp)))
+  (local-set-key (kbd "C-M-n") 'ruby-forward-sexp)
+  (local-set-key (kbd "C-M-p") 'ruby-backward-sexp)
+  (chruby-use-corresponding)))
 
 (defun sql-beautify-region (beg end)
   "Beautify SQL in region between BEG and END.
