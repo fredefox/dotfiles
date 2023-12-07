@@ -215,6 +215,27 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-unset-key (kbd "s-q"))
 
+(global-set-key (kbd "M-p") 'flycheck-previous-error)
+(global-set-key (kbd "M-n") 'flycheck-next-error)
+
+(defun insert-quotations (&optional arg)
+  "Enclose following ARG sexps in quotation-marks.
+Leave point after open-paren."
+  (interactive "*P")
+  (insert-pair arg ?\' ?\'))
+
+(defun insert-quotes (&optional arg)
+  "Enclose following ARG sexps in quotes.
+Leave point after open-quote."
+  (interactive "*P")
+  (insert-pair arg ?\" ?\"))
+
+(global-set-key "\M-'" 'insert-quotations)
+(global-set-key "\M-\"" 'insert-quotes)
+
+(global-set-key (kbd "C-<left>") 'previous-buffer)
+(global-set-key (kbd "C-<right>") 'next-buffer)
+
 (global-set-key (kbd "C-x r v") 'revert-buffer)
 
 (add-hook 'text-mode-hook
@@ -290,7 +311,7 @@
 
 ;;;; Magit
 (require 'magit)
-(global-magit-file-mode t)
+;; (global-magit-file-mode t)
 (global-set-key (kbd "C-c g g") 'magit-dispatch)
 (global-set-key (kbd "C-c g s") 'magit-status)
 (global-set-key (kbd "C-c g f") 'magit-file-dispatch)
