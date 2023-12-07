@@ -12,3 +12,6 @@ alias sb="stack build"
 alias gp="git add -p"
 # source $HOME/.config/gf/config
 alias ide='ghcid -c "stack ghci --test --ghci-options=-fno-break-on-exception --ghci-options=-fno-break-on-error --ghci-options=-v1 --ghci-options=-ferror-spans --ghci-options=-j"'
+path() {echo $PATH | tr : \\n}
+
+[ -f "/home/fredefox/.ghcup/env" ] && source "/home/fredefox/.ghcup/env" # ghcup-env
