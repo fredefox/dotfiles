@@ -23,34 +23,31 @@
  ;; If there is more than one, they won't work right.
  '(Buffer-menu-name-width 30)
  '(agda2-program-args nil)
- '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
+ '(auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   (quote
-    ("224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default)))
+   '("224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
-   (quote
-    (("*Man*" display-buffer-same-window)
-     ("*Buffer List*" display-buffer-same-window))))
+   '(("*Man*" display-buffer-same-window)
+     ("*Buffer List*" display-buffer-same-window)))
  '(echo-keystrokes 1e-10)
- '(erc-autojoin-channels-alist (quote (("irc.freenode.net" "#haskell" "#data.coop"))))
+ '(erc-autojoin-channels-alist '(("irc.freenode.net" "#haskell" "#data.coop")))
  '(erc-autojoin-mode t)
  '(erc-nick "fredefox")
  '(erc-port 6667)
  '(erc-prompt-for-password nil)
  '(erc-server "irc.freenode.net")
  '(exec-path-from-shell-check-startup-files nil)
- '(flycheck-emacs-lisp-load-path (quote inherit))
- '(flycheck-ghc-language-extensions (symbol-value (quote haskell-language-extensions)))
- '(flycheck-hlint-language-extensions (symbol-value (quote haskell-language-extensions)))
+ '(flycheck-emacs-lisp-load-path 'inherit)
+ '(flycheck-ghc-language-extensions (symbol-value 'haskell-language-extensions))
+ '(flycheck-hlint-language-extensions (symbol-value 'haskell-language-extensions))
  '(forge-alist
-   (quote
-    (("github.com" "api.github.com" "github.com" forge-github-repository)
+   '(("github.com" "api.github.com" "github.com" forge-github-repository)
      ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
      ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
      ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
@@ -62,38 +59,37 @@
      ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
      ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
      ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
-     ("git.data.coop" "git.data.coop/api/v1" "git.data.coop" forge-gitea-repository))))
+     ("git.data.coop" "git.data.coop/api/v1" "git.data.coop" forge-gitea-repository)))
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
- '(haskell-language-extensions (symbol-value (quote haskell-language-extensions)))
+ '(haskell-language-extensions (symbol-value 'haskell-language-extensions))
  '(haskell-tags-on-save t)
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
+ '(kill-whole-line t)
  '(line-move-visual nil)
- '(magit-display-buffer-function (quote magit-display-buffer-same-window-except-diff-v1))
+ '(lsp-haskell-plugin-stan-global-on nil)
+ '(magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
  '(magit-popup-display-buffer-action nil)
  '(markdown-command "pandoc -t html")
  '(menu-bar-mode nil)
- '(message-send-mail-function (quote smtpmail-send-it))
+ '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
-   (quote
-    (prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard)))
+   '(flycheck-haskell prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
  '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor")))
- '(projectile-globally-ignored-files (quote ("/TAGS" "/vendor" "/.bundle" "/node_modules")))
+   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor"))
+ '(projectile-globally-ignored-files '("/TAGS" "/vendor" "/.bundle" "/node_modules"))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path
-   (seq-filter
-    (quote file-directory-p)
-    (seq-drop
-     (directory-files "~/git" t)
-     2)))
- '(purescript-mode-hook (quote (turn-on-purescript-indentation)))
+   (seq-filter 'file-directory-p
+               (seq-drop
+                (directory-files "~/git" t)
+                2)))
+ '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
  '(ruby-align-chained-calls t)
@@ -101,22 +97,17 @@
  '(ruby-chained-calls t)
  '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values
-   (quote
-    ((setq magit-refresh-verbose 1)
-     (eval remove-hook
-           (quote magit-refs-sections-hook)
-           (quote magit-insert-tags))
+   '((setq magit-refresh-verbose 1)
+     (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
      (eval
-      (remove-hook
-       (quote magit-refs-sections-hook)
-       (quote magit-insert-tags)))
+      (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))
      (magit-refresh-buffers)
-     (git-commit-major-mode . git-commit-elisp-text-mode))))
+     (git-commit-major-mode . git-commit-elisp-text-mode)))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(scroll-margin 0)
  '(select-enable-clipboard t)
- '(send-mail-function (quote smtpmail-send-it))
+ '(send-mail-function 'smtpmail-send-it)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 2)
  '(show-paren-mode t)
@@ -153,8 +144,7 @@
   (load-monokai))
 
 ;;; Needed on MAC because we're not using Xresources :(
-(if (eq window-system 'ns)
-    (x11-shim))
+(x11-shim)
 
 
 ;;;; Additional packages
@@ -178,7 +168,7 @@
     (add-to-list 'load-path path)
     (require package))))
 
-(load-additional-packages)
+;; (load-additional-packages)
 
 (defun load-additional-themes ()
   "Load additional themes."
@@ -218,6 +208,15 @@
 (global-set-key (kbd "M-p") 'flycheck-previous-error)
 (global-set-key (kbd "M-n") 'flycheck-next-error)
 
+(add-hook 'help-mode-hook
+          (lambda ()
+            (local-set-key (kbd "M-n") 'forward-button)
+            (local-set-key (kbd "n") 'forward-button)
+            (local-set-key (kbd "M-p") 'backward-button)
+            (local-set-key (kbd "p") 'backward-button)))
+
+(windmove-default-keybindings)
+
 (defun insert-quotations (&optional arg)
   "Enclose following ARG sexps in quotation-marks.
 Leave point after open-paren."
@@ -254,9 +253,12 @@ Leave point after open-quote."
             (flycheck-mode)))
 ;; I think this breaks e.g. the color-picker
 ; (add-hook 'text-mode-hook 'form-feed-mode)
-(add-hook 'haskell-mode-hook (lambda ()
-                               (subword-mode t)
-                               (interactive-haskell-mode t)))
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (subword-mode t)
+            (interactive-haskell-mode t)
+            (flycheck-haskell-setup)))
+
 (add-hook 'ruby-mode-hook (lambda () (subword-mode t)))
 ;; global-company-mode keeps recentering the point on the screen for
 ;; some reason
@@ -271,6 +273,8 @@ Leave point after open-quote."
  'js-mode-hook
  (lambda ()
    (subword-mode t)))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 ;;;; Projectile
@@ -354,6 +358,8 @@ npm i -g sql-formatter-cli"
                             (local-set-key (kbd "C-c t") 'sql-beautify-region)))
 (put 'dired-find-alternate-file 'disabled nil)
 
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
 ;; org-jira [https://github.com/ahungry/org-jira]
 ;; (require 'org-jira)
 ;; (setq jiralib-url "https://zendesk.atlassian.net")
@@ -365,8 +371,7 @@ npm i -g sql-formatter-cli"
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+(exec-path-from-shell-initialize)
 
 (require 'flycheck)
 (define-key flycheck-mode-map flycheck-keymap-prefix nil)
