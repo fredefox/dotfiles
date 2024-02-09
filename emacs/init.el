@@ -71,6 +71,13 @@
  '(js2-basic-offset 2)
  '(kill-whole-line t)
  '(line-move-visual nil)
+ '(lsp-haskell-plugin-cabal-code-actions-on t)
+ '(lsp-haskell-plugin-ghcide-code-actions-bindings-global-on t)
+ '(lsp-haskell-plugin-ghcide-code-actions-imports-exports-global-on nil)
+ '(lsp-haskell-plugin-ghcide-completions-config-auto-extend-on nil)
+ '(lsp-haskell-plugin-import-lens-code-actions-on nil)
+ '(lsp-haskell-plugin-qualify-imported-names-global-on nil)
+ '(lsp-haskell-plugin-refine-imports-global-on nil)
  '(lsp-haskell-plugin-stan-global-on nil)
  '(magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
  '(magit-popup-display-buffer-action nil)
@@ -79,7 +86,7 @@
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
-   '(prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
+   '(rust-mode prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor"))
  '(projectile-globally-ignored-files '("/TAGS" "/vendor" "/.bundle" "/node_modules"))
@@ -92,10 +99,12 @@
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
+ '(recentf-save-file "~/.config/emacs/recentf")
  '(ruby-align-chained-calls t)
  '(ruby-align-to-stmt-keywords t)
  '(ruby-chained-calls t)
  '(ruby-insert-encoding-magic-comment nil)
+ '(rust-indent-offset 2)
  '(safe-local-variable-values
    '((setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
@@ -113,6 +122,7 @@
  '(show-paren-mode t)
  '(shr-width 80)
  '(split-window-keep-point nil)
+ '(tab-width 2)
  '(tags-add-tables t)
  '(temp-buffer-resize-mode nil)
  '(tool-bar-mode nil)
@@ -258,8 +268,7 @@ Leave point after open-quote."
 (add-hook 'haskell-mode-hook
           (lambda ()
             (subword-mode t)
-            (interactive-haskell-mode t)
-            (flycheck-haskell-setup)))
+            (interactive-haskell-mode t)))
 
 (add-hook 'ruby-mode-hook (lambda () (subword-mode t)))
 ;; global-company-mode keeps recentering the point on the screen for

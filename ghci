@@ -43,7 +43,6 @@
 -- Interface options
 :set -fdefer-type-errors
 :set -fno-show-valid-hole-fits
-:set -fmax-valid-substitutions=0
 :set -fprint-unicode-syntax
 :set -Wincomplete-patterns
 :set -Wcompat
