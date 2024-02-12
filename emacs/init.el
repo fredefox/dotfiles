@@ -29,7 +29,7 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default))
+   '("e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681" "224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -86,7 +86,8 @@
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
-   '(rust-mode prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
+   '(rust-mode flycheck-haskell prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
+ '(projectile-completion-system 'ido)
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor"))
  '(projectile-globally-ignored-files '("/TAGS" "/vendor" "/.bundle" "/node_modules"))
@@ -96,6 +97,7 @@
                (seq-drop
                 (directory-files "~/git" t)
                 2)))
+ '(projectile-switch-project-action 'magit-status)
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
@@ -216,6 +218,8 @@
 
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-unset-key (kbd "s-q"))
+
+(global-set-key (kbd "C-c C-o") 'ffap)
 
 (global-set-key (kbd "M-p") 'flycheck-previous-error)
 (global-set-key (kbd "M-n") 'flycheck-next-error)

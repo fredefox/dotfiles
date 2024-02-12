@@ -16,7 +16,7 @@
 
 (custom-theme-set-faces
  'monokai-dark
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :family "Source Code Pro"))))
+ '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "Source Code Pro"))))
  '(custom-group-tag ((t (:inherit variable-pitch :foreground "light blue" :weight bold :height 1))))
  '(custom-group-tag-1 ((t (:inherit variable-pitch :foreground "pink" :weight bold :height 1))))
  '(shadow ((t (:foreground "grey70"))))
