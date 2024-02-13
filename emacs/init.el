@@ -268,12 +268,15 @@ Leave point after open-quote."
           (lambda ()
             (form-feed-mode)
             (flycheck-mode)))
+
 ;; I think this breaks e.g. the color-picker
 ; (add-hook 'text-mode-hook 'form-feed-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
             (subword-mode t)
-            (interactive-haskell-mode t)))
+            (interactive-haskell-mode t)
+            ; disable haskell-forward-sexp due to https://github.com/haskell/haskell-mode/issues/1838
+            (setq-local forward-sexp-function nil)))
 
 (add-hook 'ruby-mode-hook (lambda () (subword-mode t)))
 ;; global-company-mode keeps recentering the point on the screen for
