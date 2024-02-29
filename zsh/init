@@ -1,3 +1,7 @@
 ZDOTDIR="$HOME/.config/zsh"
 source "$ZDOTDIR/oh-my-zsh"
 source "$ZDOTDIR/config"
+
+# fnm
+export PATH="/home/fredefox/.local/share/fnm:$PATH"
+eval "`fnm env`"
