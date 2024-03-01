@@ -17,3 +17,10 @@ path() {echo $PATH | tr : \\n}
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
 DISABLE_AUTO_UPDATE=true
+
+if command -v fnm &> /dev/null
+then
+  # fnm
+  export PATH="/home/fredefox/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
