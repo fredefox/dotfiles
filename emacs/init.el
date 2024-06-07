@@ -123,6 +123,8 @@
  '(send-mail-function 'smtpmail-send-it)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 2)
+ '(sh-basic-offset 2)
+ '(sh-indent-after-continuation nil)
  '(show-paren-mode t)
  '(shr-width 80)
  '(split-window-keep-point nil)
