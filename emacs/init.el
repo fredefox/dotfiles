@@ -43,6 +43,7 @@
  '(erc-prompt-for-password nil)
  '(erc-server "irc.freenode.net")
  '(exec-path-from-shell-check-startup-files nil)
+ '(flycheck-disabled-checkers '(haskell-hlint))
  '(flycheck-emacs-lisp-load-path 'inherit)
  '(flycheck-ghc-language-extensions (symbol-value 'haskell-language-extensions))
  '(flycheck-hlint-language-extensions (symbol-value 'haskell-language-extensions))
@@ -98,6 +99,7 @@
                 (directory-files "~/git" t)
                 2)))
  '(projectile-switch-project-action 'magit-status)
+ '(projectile-use-git-grep t)
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
@@ -200,6 +202,7 @@
 ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 ;; (add-hook 'haskell-mode-hook #'lsp)
 
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 
 ;;;; Faces
