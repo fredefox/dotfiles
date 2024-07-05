@@ -14,6 +14,9 @@ path() {echo $PATH | tr : \\n}
 alias pbcopy="xclip -sel clip -in"
 alias pbpaste="xclip -sel clip -out"
 
+if [[ ! -v ENVIRONMENT_D_RUN ]]; then
+  source $HOME/.config/environment.d/*.conf
+fi
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 if command -v fnm &> /dev/null
 then
