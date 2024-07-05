@@ -7,27 +7,15 @@ setopt appendhistory extendedglob
 unsetopt autocd beep
 bindkey -e
 
-export PATH="$HOME/.yarn/bin:$HOME/.local/bin:$PATH"
 alias sb="stack build"
 alias gp="git add -p"
-# source $HOME/.config/gf/config
 alias ide='ghcid -c "stack ghci --test --ghci-options=-fno-break-on-exception --ghci-options=-fno-break-on-error --ghci-options=-v1 --ghci-options=-ferror-spans --ghci-options=-j"'
 path() {echo $PATH | tr : \\n}
+alias pbcopy="xclip -sel clip -in"
+alias pbpaste="xclip -sel clip -out"
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
-
-DISABLE_AUTO_UPDATE=true
-
 if command -v fnm &> /dev/null
 then
-  # fnm
-  export PATH="/home/fredefox/.local/share/fnm:$PATH"
-  eval "`fnm env`"
-fi
-
-# fnm
-FNM_PATH="/home/fredefox/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/fredefox/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
