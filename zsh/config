@@ -22,3 +22,5 @@ if command -v fnm &> /dev/null
 then
   eval "`fnm env`"
 fi
+alias ls="ls --color=tty"
+bindkey "^I" complete-word

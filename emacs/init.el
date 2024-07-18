@@ -90,7 +90,7 @@
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
-   '(php-mode rust-mode flycheck-haskell prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
+   '(chruby php-mode rust-mode flycheck-haskell prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
  '(projectile-completion-system 'ido)
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor"))
@@ -301,7 +301,8 @@ Leave point after open-quote."
  'typescript-mode-hook
  (lambda ()
    (lsp)
-   (subword-mode t)))
+   (subword-mode t)
+   (prettier-js-mode t)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -355,16 +356,12 @@ Leave point after open-quote."
 ;;;; Ruby
 (require 'ruby-mode)
 
-;; I'm confused about the less worse option here.  I think the best
-;; option is to use smie (the default).
-(setq ruby-use-smie t)
-
 (setq ruby-deep-indent-paren nil)
 (setq ruby-align-to-stmt-keywords t)
 
 (setq select-enable-clipboard t)
 
-(add-hook 'ruby-mode-hook '(lambda ()
+(add-hook 'ruby-mode-hook #'(lambda ()
   (local-set-key (kbd "C-M-n") 'ruby-forward-sexp)
   (local-set-key (kbd "C-M-p") 'ruby-backward-sexp)
   (chruby-use-corresponding)))
@@ -382,15 +379,25 @@ npm i -g sql-formatter-cli"
     (interactive)
     (sql-beautify-region (point-min) (point-max)))
 
-(add-hook 'sql-mode-hook '(lambda ()
+(add-hook 'sql-mode-hook #'(lambda ()
                             ;; beautify region or buffer
                             (local-set-key (kbd "C-c t") 'sql-beautify-region)))
 (put 'dired-find-alternate-file 'disabled nil)
 
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
-(add-hook 'yaml-mode-hook '(lambda ()
+(add-hook 'yaml-mode-hook #'(lambda ()
   (flyspell-mode 0)))
+
+(add-hook 'html-mode-hook #'(lambda ()
+  (setq-local sgml-basic-offset 1)))
+
+(require 'semantic/symref/grep)
+
+(add-hook 'php-mode-hook #'(lambda ()
+  (setq-local c-basic-offset 2)
+  (add-to-list 'semantic-symref-filepattern-alist '(php-mode "*.php" "*.inc"))
+  (lsp)))
 
 ;; org-jira [https://github.com/ahungry/org-jira]
 ;; (require 'org-jira)
