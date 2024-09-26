@@ -18,9 +18,12 @@ if [[ ! -v ENVIRONMENT_D_RUN ]]; then
   source $HOME/.config/environment.d/*.conf
 fi
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
-if command -v fnm &> /dev/null
-then
-  eval "`fnm env`"
-fi
 alias ls="ls --color=tty"
 bindkey "^I" complete-word
+
+# fnm
+if [ -d "$FNM_PATH" ]; then
+  eval "`fnm env --use-on-cd --shell zsh`"
+fi
+alias nvm=fnm
+alias docker-compose='docker compose'
