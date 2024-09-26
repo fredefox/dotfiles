@@ -23,7 +23,7 @@ bindkey "^I" complete-word
 
 # fnm
 if [ -d "$FNM_PATH" ]; then
-  eval "`fnm env --use-on-cd --shell zsh`"
+  eval "`fnm env --use-on-cd --shell zsh --log-level quiet`"
 fi
 alias nvm=fnm
 alias docker-compose='docker compose'
