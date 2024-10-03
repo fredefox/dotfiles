@@ -30,6 +30,10 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    '("e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681" "224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default))
+ '(dashboard-banner-logo-title "")
+ '(dashboard-footer-icon "")
+ '(dashboard-footer-messages '(""))
+ '(dashboard-startup-banner "/home/fredefox/.local/share/emacs/banner.png")
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -68,8 +72,8 @@
  '(haskell-tags-on-save (not (null (executable-find "hasktags"))))
  '(indent-tabs-mode nil)
  '(initial-scratch-message nil)
- '(js-indent-level 2)
- '(js2-basic-offset 2)
+ '(js-indent-level 2 t)
+ '(js2-basic-offset 2 t)
  '(kill-whole-line t)
  '(line-move-visual nil)
  '(lsp-clients-deno-server "/home/fredefox/.deno/bin/deno")
@@ -113,7 +117,9 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(rust-indent-offset 2)
  '(safe-local-variable-values
-   '((setq magit-refresh-verbose 1)
+   '((eval setq typescript-indent-level 4)
+     (eval prettier-js 0)
+     (setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
      (eval
       (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))

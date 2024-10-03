@@ -27,3 +27,7 @@ if [ -d "$FNM_PATH" ]; then
 fi
 alias nvm=fnm
 alias docker-compose='docker compose'
+
+jwt-decode() {
+  jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
+}
