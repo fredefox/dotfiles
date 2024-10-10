@@ -218,7 +218,7 @@
 ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (add-hook 'haskell-mode-hook #'lsp)
 
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+(setq initial-buffer-choice "*dashboard*")
 
 
 ;;;; Faces

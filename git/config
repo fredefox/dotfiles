@@ -11,3 +11,5 @@
         algorithm = patience
 [init]
 	defaultBranch = main
+[mailmap]
+	file = /home/fredefox/.config/git/mailmap

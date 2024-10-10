@@ -46,3 +46,7 @@ mailmap-update() {
 }
 
 alias awws='echo $@ | xargs -n1 aww run'
+
+mailmap-align() {
+  mailmap | column -e -t -s '<' -o '<' | sed 's/<$//'
+}
