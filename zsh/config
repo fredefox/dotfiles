@@ -32,19 +32,6 @@ jwt-decode() {
   jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
 }
 
-mailmap-update() {
-  MAILMAP=$HOME/.config/git/mailmap
-  SHORTLOG=`mktemp`
-  PATCH=`mktemp`
-  git shortlog -sen | cut -f 2 > $SHORTLOG
-  diff --ignore-space-change $@ $MAILMAP \
-    <(cat $MAILMAP $SHORTLOG | mailmap | sort) \
-    | tee $PATCH
-  read "?Apply patch? C-c to cancel."
-  patch $MAILMAP $PATCH
-  rm $SHORTLOG $PATCH
-}
-
 alias awws='echo $@ | xargs -n1 aww run'
 
 mailmap-align() {

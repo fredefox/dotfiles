@@ -1,0 +1,15 @@
+#!/usr/bin/zsh
+
+MAILMAP=${1:-$HOME/.config/git/mailmap}
+SHORTLOG=`mktemp`
+PATCH=`mktemp`
+git shortlog -sen HEAD 2> /dev/null | cut -f 2 > $SHORTLOG
+diff --ignore-space-change $@ $MAILMAP \
+  <(cat $MAILMAP $SHORTLOG | mailmap | sort) \
+  | tee $PATCH
+if [ ! -s $PATCH ]; then
+  exit 0
+fi
+read "?Apply patch? C-c to cancel."
+patch $MAILMAP $PATCH
+rm $SHORTLOG $PATCH
