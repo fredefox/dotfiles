@@ -154,7 +154,7 @@
  '(package-selected-packages
    '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js
               quelpa typescript-mode visual-fill-column ag ripgrep
-              fill-column-indicator rjsx-mode image+ company org-jira
+              fill-column-indicator rjsx-mode image+ company
               which-key flycheck es-mode lsp-haskell forge projectile
               exec-path-from-shell lsp-ui lsp-mode editorconfig
               purescript-mode markdown-mode+ ssh-agency dash yaml-mode
@@ -227,8 +227,6 @@
   '(
     ;; (agda2-mode . "/agda-mode")
     ;; (psc-ide . "/psc-ide")
-    ;; (org-jira . "org-jira/")
-    ;; (jira . "/jira")
     ;; (spark . "/spark")
     ;; (chruby . "/chruby")
     ))
@@ -264,8 +262,6 @@
 (load-additional-themes)
 
 (require 'lsp)
-;; Shame! `lsp-ui` is emitting:
-;; Eager macro-expansion failure: (wrong-type-argument listp kind)
 (require 'lsp-ui)
 (require 'lsp-haskell)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
@@ -287,13 +283,13 @@
 
 ;;;; Captain Hook
 
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(global-unset-key (kbd "s-q"))
+(keymap-global-set "C-x C-r" 'recentf-open-files)
+(keymap-global-unset "s-q")
 
-(global-set-key (kbd "C-c C-o") 'ffap)
+(keymap-global-set "C-c C-o" 'ffap)
 
-(global-set-key (kbd "M-p") 'flycheck-previous-error)
-(global-set-key (kbd "M-n") 'flycheck-next-error)
+(define-key flycheck-mode-map (kbd "M-p") 'flycheck-previous-error)
+(define-key flycheck-mode-map (kbd "M-n") 'flycheck-next-error)
 
 (add-hook 'help-mode-hook
           (lambda ()
@@ -316,13 +312,13 @@ Leave point after open-quote."
   (interactive "*P")
   (insert-pair arg ?\" ?\"))
 
-(global-set-key "\M-'" 'insert-quotations)
-(global-set-key "\M-\"" 'insert-quotes)
+(keymap-global-set "M-'" 'insert-quotations)
+(keymap-global-set "M-\"" 'insert-quotes)
 
-(global-set-key (kbd "C-<left>") 'previous-buffer)
-(global-set-key (kbd "C-<right>") 'next-buffer)
+(keymap-global-set "C-<left>" 'previous-buffer)
+(keymap-global-set "C-<right>" 'next-buffer)
 
-(global-set-key (kbd "C-x r v") 'revert-buffer)
+(keymap-global-set "C-x r v" 'revert-buffer)
 
 (add-hook 'text-mode-hook
           (lambda ()
@@ -404,15 +400,15 @@ Leave point after open-quote."
 
 (setq ring-bell-function 'mode-line-bell-blink)
 
-(global-unset-key (kbd "C-z"))
+(keymap-global-unset "C-z")
 
 ;;;; Magit
 (require 'magit)
 ;; (global-magit-file-mode t)
-(global-set-key (kbd "C-c g g") 'magit-dispatch)
-(global-set-key (kbd "C-c g s") 'magit-status)
-(global-set-key (kbd "C-c g f") 'magit-file-dispatch)
-(global-set-key (kbd "C-c g b") 'magit-blame)
+(keymap-global-set "C-c g g" 'magit-dispatch)
+(keymap-global-set "C-c g s" 'magit-status)
+(keymap-global-set "C-c g f" 'magit-file-dispatch)
+(keymap-global-set "C-c g b" 'magit-blame)
 
 (require 'haskell)
 
@@ -460,14 +456,6 @@ npm i -g sql-formatter-cli"
 (add-hook 'php-mode-hook #'(lambda ()
   (add-to-list 'semantic-symref-filepattern-alist '(php-mode "*.php" "*.inc"))
   (lsp)))
-
-;; org-jira [https://github.com/ahungry/org-jira]
-;; (require 'org-jira)
-;; (setq jiralib-url "https://zendesk.atlassian.net")
-
-;;; Jira
-;; (require 'jira)
-(global-set-key (kbd "C-c j") 'jira)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

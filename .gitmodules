@@ -1,9 +1,6 @@
 [submodule "emacs/lisp/chruby"]
 	path = emacs/lisp/chruby
 	url = git@github.com:plexus/chruby.el.git
-[submodule "emacs/lisp/jira"]
-	path = emacs/lisp/jira
-	url = git@git.data.coop:fredefox/jira.git
 [submodule "emacs/lisp/psc-ide"]
 	path = emacs/lisp/psc-ide
 	url = git@github.com:purescript-emacs/psc-ide-emacs.git
