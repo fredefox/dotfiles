@@ -5,6 +5,10 @@
 /emacs/projectile-bookmarks.eld
 /emacs/recentf
 /emacs/transient/
-/zsh/.zcompdump
-/zsh/.zcompdump-x1-5.9
-/zsh/.zcompdump-x1-5.9.zwc
+/zsh/.zcompdump*
+/emacs/projects
+/emacs/.extension/
+/emacs/lsp-cache/
+/emacs/session.*
+/emacs/tree-sitter/
+/emacs/tramp

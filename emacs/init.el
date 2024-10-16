@@ -1,4 +1,4 @@
-;;; init.el --- Summary
+;;; init.el --- Summary -*- lexical-binding:t -*-
 ;;; Commentary:
 ;;; Initialization
 ;;; Code:
@@ -16,6 +16,15 @@
   (quote ("UnicodeSyntax" "TypeApplications" "OverloadedStrings" "LambdaCase" "StandaloneDeriving" "DerivingStrategies" "DeriveGeneric" "DeriveAnyClass" "KindSignatures" "DerivingVia" "ConstraintKinds" "FlexibleContexts" "GeneralizedNewtypeDeriving" "ExplicitForAll" "ScopedTypeVariables"))
   "List of enabled Haskell language extensions.")
 
+(defun subdirectories (directory)
+  "List directories in DIRECTORY."
+  (seq-filter 'file-directory-p (seq-drop (directory-files directory t) 2)))
+
+(require 'project)
+(defun project-prompt-project-dir-ido ()
+  "Like `project-prompt-project-dir' but using `ido-completing-read'."
+  (ido-completing-read "Switch to project " project--list))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -29,7 +38,16 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681" "224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400" "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d" "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97" "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172" "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754" default))
+   '("8397896ca5b6d6d3f6d7b7dada40f5da715b6b539b26570fd2b4f8a9e4c4853e"
+     "1e16406b258e333f7333936edcc976796bbe2dbf079887438301203b743b3bd3"
+     "37277266acc00347a163e50c67dd74bf46a705c6ac74a1f7abbc1c7667c4ec46"
+     "e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681"
+     "224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400"
+     "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d"
+     "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97"
+     "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172"
+     "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754"
+     default))
  '(dashboard-banner-logo-title "")
  '(dashboard-footer-icon "")
  '(dashboard-footer-messages '(""))
@@ -54,18 +72,27 @@
  '(flycheck-hlint-language-extensions (symbol-value 'haskell-language-extensions))
  '(forge-alist
    '(("github.com" "api.github.com" "github.com" forge-github-repository)
-     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
-     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
-     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
-     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
-     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
-     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
-     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit*-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com"
+      forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org"
+      forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org"
+      forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org"
+      forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org"
+      forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org"
+      forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org"
+      forge-cgit*-repository)
      ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
      ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
-     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.suckless.org" nil "git.suckless.org"
+      forge-stagit-repository)
      ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)
-     ("git.data.coop" "git.data.coop/api/v1" "git.data.coop" forge-gitea-repository)))
+     ("git.data.coop" "git.data.coop/api/v1" "git.data.coop"
+      forge-gitea-repository)))
  '(global-company-mode t)
  '(haskell-indentation-where-post-offset 0)
  '(haskell-indentation-where-pre-offset 0)
@@ -80,7 +107,31 @@
  '(lsp-clients-deno-server "/home/fredefox/.deno/bin/deno")
  '(lsp-eslint-auto-fix-on-save t)
  '(lsp-file-watch-ignored-directories
-   '("[/\\\\]\\.git\\'" "[/\\\\]\\.github\\'" "[/\\\\]\\.gitlab\\'" "[/\\\\]\\.circleci\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.yarn\\'" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]\\.nox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vs\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.venv\\'" "[/\\\\]\\.mypy_cache\\'" "[/\\\\]\\.pytest_cache\\'" "[/\\\\]\\.build\\'" "[/\\\\]__pycache__\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bazel-[^/\\\\]+\\'" "[/\\\\]\\.cache[/\\\\]lsp-csharp\\'" "[/\\\\]\\.meta\\'" "[/\\\\]\\.nuget\\'" "[/\\\\]Library\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.babel_cache\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]\\checkouts\\'" "[/\\\\]\\.gradle\\'" "[/\\\\]\\.m2\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\]_opam\\'" "[/\\\\]_build\\'" "[/\\\\]\\.elixir_ls\\'" "[/\\\\]\\.elixir-tools\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.terragrunt-cache\\'" "[/\\\\]\\result" "[/\\\\]\\result-bin" "[/\\\\]\\.direnv\\'" "[/\\\\]vendor\\'" "[/\\\\]var/cache\\'"))
+   '("[/\\\\]\\.git\\'" "[/\\\\]\\.github\\'" "[/\\\\]\\.gitlab\\'"
+     "[/\\\\]\\.circleci\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'"
+     "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'"
+     "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'"
+     "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.yarn\\'"
+     "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]\\.nox\\'"
+     "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'"
+     "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'"
+     "[/\\\\]\\.metals\\'" "[/\\\\]target\\'"
+     "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vs\\'" "[/\\\\]\\.vscode\\'"
+     "[/\\\\]\\.venv\\'" "[/\\\\]\\.mypy_cache\\'"
+     "[/\\\\]\\.pytest_cache\\'" "[/\\\\]\\.build\\'"
+     "[/\\\\]__pycache__\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'"
+     "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'"
+     "[/\\\\]bazel-[^/\\\\]+\\'" "[/\\\\]\\.cache[/\\\\]lsp-csharp\\'"
+     "[/\\\\]\\.meta\\'" "[/\\\\]\\.nuget\\'" "[/\\\\]Library\\'"
+     "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'"
+     "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.babel_cache\\'"
+     "[/\\\\]\\.cpcache\\'" "[/\\\\]\\checkouts\\'"
+     "[/\\\\]\\.gradle\\'" "[/\\\\]\\.m2\\'" "[/\\\\]bin/Debug\\'"
+     "[/\\\\]obj\\'" "[/\\\\]_opam\\'" "[/\\\\]_build\\'"
+     "[/\\\\]\\.elixir_ls\\'" "[/\\\\]\\.elixir-tools\\'"
+     "[/\\\\]\\.terraform\\'" "[/\\\\]\\.terragrunt-cache\\'"
+     "[/\\\\]\\result" "[/\\\\]\\result-bin" "[/\\\\]\\.direnv\\'"
+     "[/\\\\]vendor\\'" "[/\\\\]var/cache\\'"))
  '(lsp-haskell-formatting-provider "fourmolu")
  '(lsp-haskell-plugin-cabal-code-actions-on t)
  '(lsp-haskell-plugin-ghcide-code-actions-bindings-global-on t)
@@ -99,17 +150,24 @@
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-selected-packages
-   '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js quelpa typescript-mode visual-fill-column ag ripgrep fill-column-indicator rjsx-mode image+ company org-jira which-key flycheck es-mode lsp-haskell forge projectile exec-path-from-shell lsp-ui lsp-mode editorconfig purescript-mode markdown-mode+ ssh-agency dash yaml-mode restart-emacs markdown-mode magit helm haskell-mode haml-mode form-feed dashboard))
+   '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js
+              quelpa typescript-mode visual-fill-column ag ripgrep
+              fill-column-indicator rjsx-mode image+ company org-jira
+              which-key flycheck es-mode lsp-haskell forge projectile
+              exec-path-from-shell lsp-ui lsp-mode editorconfig
+              purescript-mode markdown-mode+ ssh-agency dash yaml-mode
+              restart-emacs markdown-mode magit helm haskell-mode
+              haml-mode form-feed dashboard))
+ '(project-prompter 'project-prompt-project-dir-ido)
+ '(project-switch-commands 'magit-status)
  '(projectile-completion-system 'ido)
  '(projectile-globally-ignored-directories
-   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules" "vendor"))
+   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_"
+     ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "node_modules"
+     "vendor"))
  '(projectile-globally-ignored-files '("/TAGS" "/vendor" "/.bundle" "/node_modules"))
- '(projectile-mode t nil (projectile))
  '(projectile-project-search-path
-   (seq-filter 'file-directory-p
-               (seq-drop
-                (directory-files "~/git" t)
-                2)))
+   (seq-filter 'file-directory-p (seq-drop (directory-files "~/git" t) 2)))
  '(projectile-switch-project-action 'magit-status)
  '(projectile-use-git-grep t)
  '(purescript-mode-hook '(turn-on-purescript-indentation))
@@ -122,12 +180,10 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(rust-indent-offset 2)
  '(safe-local-variable-values
-   '((eval setq typescript-indent-level 4)
-     (eval prettier-js 0)
+   '((eval setq typescript-indent-level 4) (eval prettier-js 0)
      (setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
-     (eval
-      (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))
+     (eval (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))
      (magit-refresh-buffers)
      (git-commit-major-mode . git-commit-elisp-text-mode)))
  '(scroll-bar-mode nil)
@@ -154,14 +210,7 @@
 (windmove-default-keybindings)
 
 
-;;;; MAC setup
-
-(defun set-xdg-variables ()
-  "Set the XDG base directory variables to sane defaults."
-  (setenv "XDG_CONFIG_HOME" (substitute-in-file-name "$HOME/.config"))
-  (setenv "XDG_DATA_HOME" (substitute-in-file-name "$HOME/.local/share"))
-  (setenv "XDG_CACHE_HOME" (substitute-in-file-name "$HOME/.cache")))
-
+;;;; Custom theme
 (defun load-monokai ()
   "Load the monokai dark theme."
   (add-to-list 'custom-theme-load-path
@@ -169,15 +218,13 @@
               "$XDG_CONFIG_HOME/emacs/lisp/monokai-dark-theme/"))
   (load-theme 'monokai-dark))
 
-(defun x11-shim ()
-  "Replace some behaviour otherwise handled by other system services."
-  ;; (load-theme 'monokai-dark)
-  ;; TODO Why is this not handled by the magic with the load-path above?
-  (set-xdg-variables)
-  (load-monokai))
+(load-monokai)
 
-;;; Needed on MAC because we're not using Xresources :(
-(x11-shim)
+;;;; Discover projects
+(require 'project)
+
+(let ((inhibit-message t))
+  (mapc #'project-remember-projects-under (subdirectories "~/git")))
 
 
 ;;;; Additional packages
@@ -217,8 +264,6 @@
 ;; (require 'lsp-haskell)
 ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (add-hook 'haskell-mode-hook #'lsp)
-
-(setq initial-buffer-choice "*dashboard*")
 
 
 ;;;; Faces
@@ -322,7 +367,7 @@ Leave point after open-quote."
 ;;;; Projectile
 (require 'projectile)
 
-(projectile-mode +1)
+(projectile-mode t)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 
