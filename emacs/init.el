@@ -25,6 +25,8 @@
   "Like `project-prompt-project-dir' but using `ido-completing-read'."
   (ido-completing-read "Switch to project " project--list))
 
+(require 'xdg)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -210,17 +212,6 @@
 (windmove-default-keybindings)
 
 
-;;;; Custom theme
-(require 'xdg)
-
-(defun load-monokai ()
-  "Load the monokai dark theme."
-  (add-to-list 'custom-theme-load-path
-               (concat (xdg-config-home) "/emacs/lisp/monokai-dark-theme"))
-  (load-theme 'monokai-dark))
-
-(load-monokai)
-
 ;;;; Discover projects
 (require 'project)
 
@@ -233,37 +224,51 @@
 (defvar extra-libs-root (concat (xdg-config-home) "/emacs/lisp"))
 
 (defvar additional-packages
-      '((agda2-mode . "agda-mode/")
-        (psc-ide . "psc-ide/")
-        ;; (org-jira . "org-jira/")
-        (jira . "jira/")
-        (spark . "spark/")
-        (chruby . "chruby/")))
+  '(
+    ;; (agda2-mode . "/agda-mode")
+    ;; (psc-ide . "/psc-ide")
+    ;; (org-jira . "org-jira/")
+    ;; (jira . "/jira")
+    ;; (spark . "/spark")
+    ;; (chruby . "/chruby")
+    ))
 
 (defun load-additional-packages ()
-  "Load the additional packages as specified by additional-packages."
+  "Load the additional packages as specified by `additional-packages'."
   (dolist (spec additional-packages)
-  (let* ((package (car spec))
-         (package-path (cdr spec))
-         (path (concat extra-libs-root package-path)))
-    (add-to-list 'load-path path)
-    (require package))))
+    (let* ((package (car spec))
+           (package-path (cdr spec))
+           (path (concat extra-libs-root package-path)))
+      (cond ((file-exists-p path)
+             (add-to-list 'load-path path)
+             (require package))
+            (t (warn (format "Additional package `%s' does not exist" package)))))))
 
-;; (load-additional-packages)
+(load-additional-packages)
+
+(defvar additional-themes
+      '((inheritance . "/inheritance-theme")
+        (monokai-dark . "/monokai-dark-theme")))
 
 (defun load-additional-themes ()
-  "Load additional themes."
-  (add-to-list 'custom-theme-load-path (concat extra-libs-root "/inheritance-theme"))
-  (load-theme 'inheritance))
+  "Load the additional themes as specified by `additional-themes'."
+  (dolist (spec additional-themes)
+    (let* ((theme (car spec))
+           (theme-path (cdr spec))
+           (path (concat extra-libs-root theme-path)))
+      (cond ((file-exists-p path)
+             (add-to-list 'custom-theme-load-path path)
+             (load-theme theme))
+            (t (warn (format "Additional theme `%s' does not exist" theme)))))))
 
 (load-additional-themes)
 
 (require 'lsp)
 ;; Shame! `lsp-ui` is emitting:
 ;; Eager macro-expansion failure: (wrong-type-argument listp kind)
-;; (require 'lsp-ui)
-;; (require 'lsp-haskell)
-;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(require 'lsp-ui)
+(require 'lsp-haskell)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (add-hook 'haskell-mode-hook #'lsp)
 
 
