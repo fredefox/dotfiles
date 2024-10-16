@@ -173,7 +173,7 @@
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
- '(recentf-save-file (substitute-in-file-name "$HOME/.config/emacs/recentf"))
+ '(recentf-save-file (concat (xdg-config-home) "/emacs/recentf"))
  '(ruby-align-chained-calls t)
  '(ruby-align-to-stmt-keywords t)
  '(ruby-chained-calls t)
@@ -211,11 +211,12 @@
 
 
 ;;;; Custom theme
+(require 'xdg)
+
 (defun load-monokai ()
   "Load the monokai dark theme."
   (add-to-list 'custom-theme-load-path
-             (substitute-in-file-name
-              "$XDG_CONFIG_HOME/emacs/lisp/monokai-dark-theme/"))
+               (concat (xdg-config-home) "/emacs/lisp/monokai-dark-theme"))
   (load-theme 'monokai-dark))
 
 (load-monokai)
@@ -229,7 +230,7 @@
 
 ;;;; Additional packages
 ;;;; Maybe we should use qelpa to mangage these.
-(defvar extra-libs-root (substitute-in-file-name "$XDG_CONFIG_HOME/emacs/lisp/"))
+(defvar extra-libs-root (concat (xdg-config-home) "/emacs/lisp"))
 
 (defvar additional-packages
       '((agda2-mode . "agda-mode/")
@@ -252,7 +253,7 @@
 
 (defun load-additional-themes ()
   "Load additional themes."
-  (add-to-list 'custom-theme-load-path (concat extra-libs-root "inheritance-theme/"))
+  (add-to-list 'custom-theme-load-path (concat extra-libs-root "/inheritance-theme"))
   (load-theme 'inheritance))
 
 (load-additional-themes)
@@ -375,7 +376,7 @@ Leave point after open-quote."
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
-(setq dashboard-startup-banner (substitute-in-file-name "$XDG_DATA_HOME/emacs/banner.png"))
+(setq dashboard-startup-banner (concat (xdg-data-home) "/emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
 (add-hook 'dashboard-mode-hook
