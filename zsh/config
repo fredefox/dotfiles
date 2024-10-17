@@ -34,6 +34,11 @@ jwt-decode() {
 
 alias awws='echo $@ | xargs -n1 aww run'
 
-mailmap-align() {
-  mailmap | column -e -t -s '<' -o '<' | sed 's/<$//'
+openvpn-connect() {
+  CREDENTIALS=${1:-$HOME/.config/openvpn/credentials/fhi@penneo.com}
+  openvpn --config product_fhi@penneo.com_penneo-ops.ovpn --auth-user-pass --auth-retry interact --auth-user-pass $CREDENTIALS
+}
+
+decode-uri-component() {
+  node -e 'const fs = require("fs"); const stdin = fs.readFileSync(0); console.log(decodeURIComponent(stdin.toString()));'
 }

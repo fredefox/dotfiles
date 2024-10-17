@@ -182,7 +182,9 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(rust-indent-offset 2)
  '(safe-local-variable-values
-   '((eval setq typescript-indent-level 4) (eval prettier-js 0)
+   '((eval setq flycheck-javascript-eslint-executable "npm exec eslint")
+     (eval setq typescript-indent-level 4)
+     (eval prettier-js 0)
      (setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
      (eval (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))
@@ -206,6 +208,7 @@
  '(tool-bar-mode nil)
  '(typescript-indent-level 2)
  '(vc-follow-symlinks nil)
+ '(warning-suppress-types '((lsp-mode)))
  '(window-combination-resize t)
  '(window-resize-pixelwise t))
 
@@ -297,6 +300,10 @@
             (local-set-key (kbd "n") 'forward-button)
             (local-set-key (kbd "M-p") 'backward-button)
             (local-set-key (kbd "p") 'backward-button)))
+
+(require 'view)
+(define-key view-mode-map (kbd "n") 'forward-line)
+(define-key view-mode-map (kbd "p") 'previous-line)
 
 (windmove-default-keybindings)
 
@@ -467,5 +474,23 @@ npm i -g sql-formatter-cli"
 (setq flycheck-keymap-prefix (kbd "C-c f"))
 (define-key flycheck-mode-map flycheck-keymap-prefix
             flycheck-command-map)
+
+(require 'dap-mode)
+(require 'dap-php)
+(dap-register-debug-template "api-sign" '(
+                                          :type "php"
+                                          :cwd nil
+                                          :request "launch"
+                                          :name "api-sign"
+                                          :stopOnEntry t
+                                          :serverSourceRoot "/app/data"
+                                          :localSourceRoot (substitute-in-file-name "$HOME/git/penneo/api-sign")
+                                          ;; :args '("--server=4711")
+                                          :sourceMaps t))
+
+(define-key dap-mode-map (kbd "<f8>") 'dap-continue)
+(define-key dap-mode-map (kbd "<f10>") 'dap-next)
+(define-key dap-mode-map (kbd "<f11>") 'dap-step-in)
+(define-key dap-mode-map (kbd "S-<f11>") 'dap-step-out)
 
 ;;; init.el ends here
