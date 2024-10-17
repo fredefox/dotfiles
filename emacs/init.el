@@ -411,11 +411,11 @@ Leave point after open-quote."
 
 ;;;; Magit
 (require 'magit)
-;; (global-magit-file-mode t)
 (keymap-global-set "C-c g g" 'magit-dispatch)
 (keymap-global-set "C-c g s" 'magit-status)
 (keymap-global-set "C-c g f" 'magit-file-dispatch)
 (keymap-global-set "C-c g b" 'magit-blame)
+(setq magit-process-finish-apply-ansi-colors t)
 
 (require 'haskell)
 
