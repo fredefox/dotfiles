@@ -5,8 +5,7 @@
 ;;; Commentary:
 ;;; Code:
 (deftheme inheritance
-  "Theme to make various packages use inherited values for
-  styling from other packages.")
+  "Theme to make various packages use inherited values for styling from other packages.")
 
 (custom-theme-set-variables
  'inheritance

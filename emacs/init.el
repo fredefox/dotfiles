@@ -40,7 +40,8 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("8397896ca5b6d6d3f6d7b7dada40f5da715b6b539b26570fd2b4f8a9e4c4853e"
+   '("733043848a35c2c5048430a6c86cb581bb05c2db1f1d6629f2b9141daa7592d4"
+     "8397896ca5b6d6d3f6d7b7dada40f5da715b6b539b26570fd2b4f8a9e4c4853e"
      "1e16406b258e333f7333936edcc976796bbe2dbf079887438301203b743b3bd3"
      "37277266acc00347a163e50c67dd74bf46a705c6ac74a1f7abbc1c7667c4ec46"
      "e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681"
@@ -154,8 +155,8 @@
  '(package-selected-packages
    '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js
               quelpa typescript-mode visual-fill-column ag ripgrep
-              fill-column-indicator rjsx-mode image+ company
-              which-key flycheck es-mode lsp-haskell forge projectile
+              fill-column-indicator rjsx-mode image+ company which-key
+              flycheck es-mode lsp-haskell forge projectile
               exec-path-from-shell lsp-ui lsp-mode editorconfig
               purescript-mode markdown-mode+ ssh-agency dash yaml-mode
               restart-emacs markdown-mode magit helm haskell-mode
