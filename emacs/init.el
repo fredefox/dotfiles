@@ -153,15 +153,16 @@
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
  '(package-native-compile t)
+ '(package-quickstart t)
  '(package-selected-packages
-   '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js
-              quelpa typescript-mode visual-fill-column ag ripgrep
-              fill-column-indicator rjsx-mode image+ company which-key
-              flycheck es-mode lsp-haskell forge projectile
-              exec-path-from-shell lsp-ui lsp-mode editorconfig
-              purescript-mode markdown-mode+ ssh-agency dash yaml-mode
-              restart-emacs markdown-mode magit helm haskell-mode
-              haml-mode form-feed dashboard))
+   '(ag chruby company dap-mode dash dashboard editorconfig es-mode
+        exec-path-from-shell fill-column-indicator flycheck
+        flycheck-haskell forge form-feed haml-mode haskell-mode helm
+        image+ lsp-haskell lsp-mode lsp-ui magit markdown-mode
+        markdown-mode+ php-mode prettier-js projectile purescript-mode
+        quelpa restart-emacs ripgrep rjsx-mode rust-mode spark
+        ssh-agency typescript-mode visual-fill-column which-key
+        yaml-mode))
  '(project-prompter 'project-prompt-project-dir-ido)
  '(project-switch-commands 'magit-status)
  '(projectile-completion-system 'ido)
@@ -234,6 +235,9 @@
     ;; (spark . "/spark")
     ;; (chruby . "/chruby")
     ))
+
+;; (package-vc-install
+;;  '(spark :url "git@github.com:alvinfrancis/spark.git" :vc-backend Git))
 
 (defun load-additional-packages ()
   "Load the additional packages as specified by `additional-packages'."
