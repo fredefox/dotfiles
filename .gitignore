@@ -12,3 +12,6 @@
 /emacs/session.*
 /emacs/tree-sitter/
 /emacs/tramp
+/emacs/.dap-breakpoints
+/emacs/dap-ui-repl-php-history
+/emacs/url/
