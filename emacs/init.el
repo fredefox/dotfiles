@@ -3,8 +3,9 @@
 ;;; Initialization
 ;;; Code:
 (require 'package)
-(add-to-list 'package-archives
-             '("MELPA" . "https://melpa.org/packages/") t)
+(add-to-list
+ 'package-archives
+ '("MELPA" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -159,10 +160,14 @@
         exec-path-from-shell fill-column-indicator flycheck
         flycheck-haskell forge form-feed haml-mode haskell-mode helm
         image+ lsp-haskell lsp-mode lsp-ui magit markdown-mode
-        markdown-mode+ php-mode prettier-js projectile purescript-mode
-        quelpa restart-emacs ripgrep rjsx-mode rust-mode spark
-        ssh-agency typescript-mode visual-fill-column which-key
-        yaml-mode))
+        php-mode prettier-js projectile psc-ide purescript-mode quelpa
+        restart-emacs ripgrep rjsx-mode rust-mode ssh-agency
+        typescript-mode visual-fill-column which-key yaml-mode))
+ '(package-vc-selected-packages
+   '((psc-ide :url "git@github.com:purescript-emacs/psc-ide-emacs.git"
+              :vc-backend Git)
+     (chruby :url "git@github.com:plexus/chruby.el.git" :vc-backend
+             Git)))
  '(project-prompter 'project-prompt-project-dir-ido)
  '(project-switch-commands 'magit-status)
  '(projectile-completion-system 'ido)
@@ -214,6 +219,10 @@
  '(window-combination-resize t)
  '(window-resize-pixelwise t))
 
+(unless package-archive-contents
+  (package-refresh-contents)
+  (package-install-selected-packages t))
+
 (windmove-default-keybindings)
 
 
@@ -235,9 +244,6 @@
     ;; (spark . "/spark")
     ;; (chruby . "/chruby")
     ))
-
-;; (package-vc-install
-;;  '(spark :url "git@github.com:alvinfrancis/spark.git" :vc-backend Git))
 
 (defun load-additional-packages ()
   "Load the additional packages as specified by `additional-packages'."
