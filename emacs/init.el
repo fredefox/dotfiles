@@ -152,6 +152,7 @@
  '(menu-bar-mode nil)
  '(message-send-mail-function 'smtpmail-send-it)
  '(org-agenda-files "~/.config/orgmode/agenda_files")
+ '(package-native-compile t)
  '(package-selected-packages
    '(dap-mode chruby php-mode rust-mode flycheck-haskell prettier-js
               quelpa typescript-mode visual-fill-column ag ripgrep
@@ -176,7 +177,7 @@
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
  '(recentf-mode t)
- '(recentf-save-file (concat (xdg-config-home) "/emacs/recentf"))
+ '(recentf-save-file (locate-user-emacs-file "recentf"))
  '(ruby-align-chained-calls t)
  '(ruby-align-to-stmt-keywords t)
  '(ruby-chained-calls t)
@@ -184,8 +185,7 @@
  '(rust-indent-offset 2)
  '(safe-local-variable-values
    '((eval setq flycheck-javascript-eslint-executable "npm exec eslint")
-     (eval setq typescript-indent-level 4)
-     (eval prettier-js 0)
+     (eval setq typescript-indent-level 4) (eval prettier-js 0)
      (setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
      (eval (remove-hook 'magit-refs-sections-hook 'magit-insert-tags))
@@ -225,7 +225,7 @@
 
 ;;;; Additional packages
 ;;;; Maybe we should use qelpa to mangage these.
-(defvar extra-libs-root (concat (xdg-config-home) "/emacs/lisp"))
+(defvar extra-libs-root (locate-user-emacs-file "lisp"))
 
 (defvar additional-packages
   '(
@@ -503,24 +503,31 @@ npm i -g sql-formatter-cli"
 (define-key dap-mode-map (kbd "S-<f11>") 'dap-step-out)
 
 (require 'treesit)
+
 (setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (css "https://github.com/tree-sitter/tree-sitter-css")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (go "https://github.com/tree-sitter/tree-sitter-go")
-     (html "https://github.com/tree-sitter/tree-sitter-html")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-     (haskell "https://github.com/tree-sitter/tree-sitter-haskell")))
+      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+        (cmake "https://github.com/uyha/tree-sitter-cmake")
+        (css "https://github.com/tree-sitter/tree-sitter-css")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (go "https://github.com/tree-sitter/tree-sitter-go")
+        (html "https://github.com/tree-sitter/tree-sitter-html")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        (make "https://github.com/alemuller/tree-sitter-make")
+        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (toml "https://github.com/tree-sitter/tree-sitter-toml")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+        (haskell "https://github.com/tree-sitter/tree-sitter-haskell")))
 
-(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+(defun initialize-treesit ()
+  "Download and install treesit recipees listed in\
+`treesit-language-source-alist'."
 
+  (unless (file-exists-p (locate-user-emacs-file "tree-sitter"))
+    (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))))
+
+(initialize-treesit)
 ;;; init.el ends here
