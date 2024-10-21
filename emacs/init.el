@@ -477,16 +477,24 @@ npm i -g sql-formatter-cli"
 
 (require 'dap-mode)
 (require 'dap-php)
-(dap-register-debug-template "api-sign" '(
-                                          :type "php"
-                                          :cwd nil
-                                          :request "launch"
-                                          :name "api-sign"
-                                          :stopOnEntry t
-                                          :serverSourceRoot "/app/data"
-                                          :localSourceRoot (substitute-in-file-name "$HOME/git/penneo/api-sign")
-                                          ;; :args '("--server=4711")
-                                          :sourceMaps t))
+(defconst dap-debug--debug-template-api-sign
+  `(
+    :type "php"
+    :cwd nil
+    :request "launch"
+    :name "api-sign"
+    ;; :stopOnEntry t
+    :serverSourceRoot "/app/data"
+    :localSourceRoot ,(substitute-in-file-name "$HOME/git/penneo/api-sign")
+    ;; :args '("--server=4711")
+    :sourceMaps t))
+
+(dap-register-debug-template "api-sign" dap-debug--debug-template-api-sign)
+
+(defun dap-debug-api-sign ()
+  "Run `dap-debug` with the configuration `dap-debug--debug-template-api-sign'."
+  (interactive)
+  (dap-debug dap-debug--debug-template-api-sign))
 
 (define-key dap-mode-map (kbd "<f8>") 'dap-continue)
 (define-key dap-mode-map (kbd "<f10>") 'dap-next)
