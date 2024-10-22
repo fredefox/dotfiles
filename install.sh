@@ -19,4 +19,24 @@ do
   ln -s $DOTFILES/$package .
 done
 
-sudo apt install emacs curl atool curl zsh xclip
+apt install \
+    atool \
+    autoconf \
+    curl \
+    curl \
+    emacs \
+    imagemagick \
+    libgccjit-{10..14}-dev \
+    libgif-dev \
+    libgnutls28-dev \
+    libgtk-3-dev \
+    libmagickwand-dev \
+    libncurses-dev \
+    libtinfo6 \
+    libxpm-dev \
+    makeinfo \
+    texi2html \
+    texinfo \
+    xclip \
+    zsh
+
