@@ -40,3 +40,6 @@ apt install \
     xclip \
     zsh
 
+emacs \
+  --script ${XDG_CONFIG_HOME:-$HOME}/emacs/init.el \
+  --eval '(package-refresh-contents) (package-install-selected-packages t)'
