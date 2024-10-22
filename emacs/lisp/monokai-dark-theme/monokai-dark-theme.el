@@ -1,4 +1,4 @@
-;;; monokai-dark-theme --- Summary:
+;;; monokai-dark-theme --- Summary: -*- lexical-binding:t -*-
 ;;;
 ;;; A bare-bones version of the monokai-dark theme.
 ;;;

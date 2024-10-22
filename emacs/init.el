@@ -372,14 +372,14 @@ Leave point after open-quote."
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
 
-
+(require 'lsp-eslint)
 (add-hook
  'typescript-mode-hook
  (lambda ()
    (lsp)
    (subword-mode t)
    ;; (prettier-js-mode t)
-   ))
+   (add-hook 'before-save-hook #'lsp-eslint-fix-all)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 

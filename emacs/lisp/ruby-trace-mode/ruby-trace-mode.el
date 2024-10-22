@@ -1,4 +1,4 @@
-;;; ruby-trace-mode --- Syntax highlighting for ruby traces
+;;; ruby-trace-mode --- Syntax highlighting for ruby traces -*- lexical-binding:t -*-
 
 ;;; Commentary:
 
@@ -11,7 +11,7 @@
     ("#[0-9]+" . font-lock-constant-face)))
 
 (define-derived-mode ruby-trace-mode prog-mode "ruby-trace"
-  "Minor mode for syntax highlighting ruby traces"
+  "Minor mode for syntax highlighting ruby traces."
   (setq font-lock-defaults '(ruby-trace-highlights)))
 
 ;; Hi-lock: (("\\bat\\b" (0 (quote font-lock-keyword-face) prepend)))
