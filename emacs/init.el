@@ -41,7 +41,8 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
+   '("c56d1bb98f98ce07fdad96e462d36c3257ab6698b14cf4219d3830fdb8099c72"
+     "d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
      "e69cee0885c7c3e6cd7f8fa9497e00732fc37258e8ea13f4cc9e9862688a8194"
      "733043848a35c2c5048430a6c86cb581bb05c2db1f1d6629f2b9141daa7592d4"
      "8397896ca5b6d6d3f6d7b7dada40f5da715b6b539b26570fd2b4f8a9e4c4853e"
@@ -160,11 +161,12 @@
  '(package-selected-packages
    '(ag chruby company dap-mode dash dashboard editorconfig es-mode
         exec-path-from-shell fill-column-indicator flycheck
-        flycheck-haskell forge form-feed haml-mode haskell-mode helm
-        image+ lsp-haskell lsp-mode lsp-ui magit markdown-mode
-        php-mode prettier-js projectile psc-ide purescript-mode quelpa
-        restart-emacs ripgrep rjsx-mode rust-mode ssh-agency
-        typescript-mode visual-fill-column which-key yaml-mode))
+        flycheck-haskell forge form-feed haml-mode haskell-mode
+        haskell-ts-mode helm image+ lsp-haskell lsp-mode lsp-ui magit
+        markdown-mode php-mode prettier-js projectile psc-ide
+        purescript-mode quelpa restart-emacs ripgrep rjsx-mode
+        rust-mode ssh-agency typescript-mode visual-fill-column
+        which-key yaml-mode))
  '(package-vc-selected-packages
    '((psc-ide :url "git@github.com:purescript-emacs/psc-ide-emacs.git"
               :vc-backend Git)
@@ -292,14 +294,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#18191b" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 130 :width normal :foundry "ADBO" :family "Source Code Pro"))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#090101" :foreground "#f6fefe" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 130 :width normal :foundry "ADBO" :family "Source Code Pro"))))
  '(fixed-pitch-serif ((t (:family "Monospace Serif"))))
- '(font-lock-builtin-face ((t (:foreground "#99c7ff"))))
- '(font-lock-comment-face ((t (:foreground "chocolate1"))))
- '(font-lock-constant-face ((t (:foreground "#7fffd4"))))
- '(font-lock-keyword-face ((t (:foreground "Cyan"))))
- '(highlight ((t (:background "darkolivegreen"))))
- '(lazy-highlight ((t (:background "paleturquoise4" :distant-foreground "white"))))
+ '(font-lock-comment-face ((t (:foreground "#e66f19"))))
+ '(font-lock-string-face ((t (:foreground "#ffcc33"))))
  '(region ((t (:background "#285b89"))))
  '(success ((t (:foreground "Green3" :weight bold)))))
 
@@ -381,14 +379,14 @@ Leave point after open-quote."
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
 
-(require 'lsp-eslint)
+
 (add-hook
  'typescript-mode-hook
  (lambda ()
    (lsp)
    (subword-mode t)
    ;; (prettier-js-mode t)
-   (add-hook 'before-save-hook #'lsp-eslint-fix-all)))
+   ))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
