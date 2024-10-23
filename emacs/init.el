@@ -211,6 +211,7 @@
  '(show-paren-mode t)
  '(shr-width 80)
  '(split-window-keep-point nil)
+ '(suggest-key-bindings nil)
  '(tab-width 2)
  '(tags-add-tables t)
  '(temp-buffer-resize-mode nil)
@@ -291,8 +292,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#18191b" :foreground "#e8e8e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 130 :width normal :foundry "ADBO" :family "Source Code Pro"))))
  '(fixed-pitch-serif ((t (:family "Monospace Serif"))))
+ '(font-lock-builtin-face ((t (:foreground "#99c7ff"))))
  '(font-lock-comment-face ((t (:foreground "chocolate1"))))
+ '(font-lock-constant-face ((t (:foreground "#7fffd4"))))
+ '(font-lock-keyword-face ((t (:foreground "Cyan"))))
+ '(highlight ((t (:background "darkolivegreen"))))
+ '(lazy-highlight ((t (:background "paleturquoise4" :distant-foreground "white"))))
  '(region ((t (:background "#285b89"))))
  '(success ((t (:foreground "Green3" :weight bold)))))
 
