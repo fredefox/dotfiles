@@ -186,6 +186,7 @@
  '(projectile-use-git-grep t)
  '(purescript-mode-hook '(turn-on-purescript-indentation))
  '(recentf-max-menu-items 255)
+ '(recentf-max-saved-items 255)
  '(recentf-mode t)
  '(recentf-save-file (locate-user-emacs-file "recentf"))
  '(ruby-align-chained-calls t)
@@ -194,7 +195,9 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(rust-indent-offset 2)
  '(safe-local-variable-values
-   '((eval setq flycheck-javascript-eslint-executable "npm exec eslint")
+   '((eval setq js-indent-level 4)
+     (eval setq flycheck-javascript-eslint-executable
+           "npm exec eslint")
      (eval setq typescript-indent-level 4) (eval prettier-js 0)
      (setq magit-refresh-verbose 1)
      (eval remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
@@ -378,6 +381,7 @@ Leave point after open-quote."
 ;; ;; (require 'haskell-unicode-input-method)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
 
 
 (add-hook
