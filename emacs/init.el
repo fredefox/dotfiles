@@ -159,8 +159,8 @@
  '(package-native-compile t)
  '(package-quickstart t)
  '(package-selected-packages
-   '(ag chruby company dap-mode dash dashboard editorconfig es-mode
-        exec-path-from-shell fill-column-indicator flycheck
+   '(ag chruby company cucumber dap-mode dash dashboard editorconfig
+        es-mode exec-path-from-shell fill-column-indicator flycheck
         flycheck-haskell forge form-feed haml-mode haskell-mode
         haskell-ts-mode helm image+ lsp-haskell lsp-mode lsp-ui magit
         markdown-mode php-mode prettier-js projectile psc-ide
@@ -168,10 +168,11 @@
         rust-mode ssh-agency typescript-mode visual-fill-column
         which-key yaml-mode))
  '(package-vc-selected-packages
-   '((psc-ide :url "git@github.com:purescript-emacs/psc-ide-emacs.git"
+   '((chruby :url "git@github.com:plexus/chruby.el.git" :vc-backend Git)
+     (psc-ide :url "git@github.com:purescript-emacs/psc-ide-emacs.git"
               :vc-backend Git)
-     (chruby :url "git@github.com:plexus/chruby.el.git" :vc-backend
-             Git)))
+     (cucumber :url "git@github.com:michaelklishin/cucumber.el.git"
+               :vc-backend Git)))
  '(project-prompter 'project-prompt-project-dir-ido)
  '(project-switch-commands 'magit-status)
  '(projectile-completion-system 'ido)
