@@ -195,7 +195,9 @@
  '(ruby-insert-encoding-magic-comment nil)
  '(rust-indent-offset 2)
  '(safe-local-variable-values
-   '((eval setq js-indent-level 4)
+   '((eval add-to-list 'lsp-file-watch-ignored-directories
+           "[/\\\\]docs/public" t)
+     (eval setq js-indent-level 4)
      (eval setq flycheck-javascript-eslint-executable
            "npm exec eslint")
      (eval setq typescript-indent-level 4) (eval prettier-js 0)
@@ -383,14 +385,14 @@ Leave point after open-quote."
 (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
 
-
+(require 'lsp-eslint)
 (add-hook
  'typescript-mode-hook
  (lambda ()
    (lsp)
    (subword-mode t)
    ;; (prettier-js-mode t)
-   ))
+   (add-hook 'before-save-hook #'lsp-eslint-fix-all)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
