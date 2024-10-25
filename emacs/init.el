@@ -41,7 +41,8 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
+   '("4bf8dc4638215ae1e5ed891daae1a0615e036275a9fe11918a94730c63b71749"
+     "d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
      "de48118c05b391e4f1754474c6b1de5c52e2018a90a9cd1f02a14e59d4c9ddd5"
      default))
  '(custom-theme-directory (file-name-concat user-emacs-directory "themes"))
