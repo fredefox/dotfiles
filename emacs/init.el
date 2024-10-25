@@ -41,25 +41,14 @@
  '(company-tooltip-minimum-width 35)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   '("de48118c05b391e4f1754474c6b1de5c52e2018a90a9cd1f02a14e59d4c9ddd5"
-     "c56d1bb98f98ce07fdad96e462d36c3257ab6698b14cf4219d3830fdb8099c72"
-     "d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
-     "e69cee0885c7c3e6cd7f8fa9497e00732fc37258e8ea13f4cc9e9862688a8194"
-     "733043848a35c2c5048430a6c86cb581bb05c2db1f1d6629f2b9141daa7592d4"
-     "8397896ca5b6d6d3f6d7b7dada40f5da715b6b539b26570fd2b4f8a9e4c4853e"
-     "1e16406b258e333f7333936edcc976796bbe2dbf079887438301203b743b3bd3"
-     "37277266acc00347a163e50c67dd74bf46a705c6ac74a1f7abbc1c7667c4ec46"
-     "e16181ddd62be929e53287afcb1a9977953bdb913dc095fe58267b0db80ee681"
-     "224f84d5013ad0b98a43c54683302309a7cba53c0e37480a65284fd365774400"
-     "d59e18ab7969fd68103ab0fe07e03c1830fd77c21c12a3fb4fe970931ddaf68d"
-     "670df6cad1a732850a5d90ce2b0326969bd7596881dc1fed6b35091520a3da97"
-     "aa81baddda211ffab84a5dc68750ac519d4841be63907a6b5de0cd72e631b172"
-     "c91a5bf65b3f79ab28ab350b1d16c24d8b8bc1201e9c6c2106a60f98bceae754"
+   '("d685c5355a076a43ff793f8b85ec352508b35139adac124de21b6795fbf613fc"
+     "de48118c05b391e4f1754474c6b1de5c52e2018a90a9cd1f02a14e59d4c9ddd5"
      default))
+ '(custom-theme-directory (file-name-concat user-emacs-directory "themes"))
  '(dashboard-banner-logo-title "")
  '(dashboard-footer-icon "")
  '(dashboard-footer-messages '(""))
- '(dashboard-startup-banner "/home/fredefox/.local/share/emacs/banner.png")
+ '(dashboard-startup-banner (file-name-concat (xdg-data-home) "emacs/banner.png"))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
  '(display-buffer-alist
@@ -262,7 +251,7 @@
   (dolist (spec additional-packages)
     (let* ((package (car spec))
            (package-path (cdr spec))
-           (path (concat extra-libs-root package-path)))
+           (path (file-name-concat extra-libs-root package-path)))
       (cond ((file-exists-p path)
              (add-to-list 'load-path path)
              (require package))
@@ -270,22 +259,9 @@
 
 (load-additional-packages)
 
-(defvar additional-themes
-      '((inheritance . "/inheritance-theme")
-        (monokai-dark . "/monokai-dark-theme")))
+(defvar additional-themes)
 
-(defun load-additional-themes ()
-  "Load the additional themes as specified by `additional-themes'."
-  (dolist (spec additional-themes)
-    (let* ((theme (car spec))
-           (theme-path (cdr spec))
-           (path (concat extra-libs-root theme-path)))
-      (cond ((file-exists-p path)
-             (add-to-list 'custom-theme-load-path path)
-             (load-theme theme))
-            (t (warn (format "Additional theme `%s' does not exist" theme)))))))
-
-(load-additional-themes)
+(mapc #'load-theme '(inheritance monokai-dark))
 
 (require 'lsp)
 (require 'lsp-ui)
@@ -410,7 +386,7 @@ Leave point after open-quote."
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
-(setq dashboard-startup-banner (concat (xdg-data-home) "/emacs/banner.png"))
+(setq dashboard-startup-banner (file-name-concat (xdg-data-home) "emacs/banner.png"))
 (setq dashboard-items '((recents  . 40)))
 
 (add-hook 'dashboard-mode-hook
