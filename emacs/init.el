@@ -40,33 +40,6 @@
   (mapc #'project-remember-projects-under (subdirectories "~/git")))
 
 
-;;;; Additional packages
-;;;; Maybe we should use qelpa to mangage these.
-(defvar extra-libs-root (locate-user-emacs-file "lisp"))
-
-(defvar additional-packages
-  '(
-    ;; (agda2-mode . "/agda-mode")
-    ;; (psc-ide . "/psc-ide")
-    ;; (spark . "/spark")
-    ;; (chruby . "/chruby")
-    ))
-
-(defun load-additional-packages ()
-  "Load the additional packages as specified by `additional-packages'."
-  (dolist (spec additional-packages)
-    (let* ((package (car spec))
-           (package-path (cdr spec))
-           (path (file-name-concat extra-libs-root package-path)))
-      (cond ((file-exists-p path)
-             (add-to-list 'load-path path)
-             (require package))
-            (t (warn (format "Additional package `%s' does not exist" package)))))))
-
-(load-additional-packages)
-
-(defvar additional-themes)
-
 (mapc #'load-theme '(inheritance monokai-dark))
 
 (require 'lsp)
