@@ -247,16 +247,37 @@ npm i -g sql-formatter-cli"
 (defconst dap-debug--debug-template-api-sign
   `(
     :type "php"
-    :cwd nil
+    :cwd ,(substitute-in-file-name "$HOME/git/penneo/api-sign")
     :request "launch"
     :name "api-sign"
     ;; :stopOnEntry t
     :serverSourceRoot "/app/data"
     :localSourceRoot ,(substitute-in-file-name "$HOME/git/penneo/api-sign")
+    :port 9003
     ;; :args '("--server=4711")
     :sourceMaps t))
 
-(dap-register-debug-template "api-sign" dap-debug--debug-template-api-sign)
+(defconst dap-debug--debug-template-api-auth
+  `(
+    :type "php"
+    :cwd ,(substitute-in-file-name "$HOME/git/penneo/api-auth")
+    :request "launch"
+    :name "api-auth"
+    ;; :stopOnEntry t
+    :serverSourceRoot "/app/data"
+    :localSourceRoot ,(substitute-in-file-name "$HOME/git/penneo/api-auth")
+    :port 9004
+    ;; :args '("--server=4711")
+    :sourceMaps t))
+
+(defconst dap-debug--debug-templates
+  `((api-sign . ,dap-debug--debug-template-api-sign)
+    (api-auth . ,dap-debug--debug-template-api-auth)))
+
+(mapc (lambda (pair) (dap-register-debug-template (symbol-name (car pair)) (cdr pair))) dap-debug--debug-templates)
+
+;; (mapc #'dap-register-debug-template '(dap-debug--debug-template-api-sign dap-debug--debug-template-api-auth))
+;; (dap-register-debug-template "api-sign" dap-debug--debug-template-api-sign)
 
 (defun dap-debug-api-sign ()
   "Run `dap-debug` with the configuration `dap-debug--debug-template-api-sign'."
@@ -286,7 +307,9 @@ npm i -g sql-formatter-cli"
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-        (haskell "https://github.com/tree-sitter/tree-sitter-haskell")))
+        (haskell "https://github.com/tree-sitter/tree-sitter-haskell")
+        (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+        (kotlin "git@github.com:fwcd/tree-sitter-kotlin.git")))
 
 (defun initialize-treesit ()
   "Download and install treesit recipees listed in \

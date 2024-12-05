@@ -29,6 +29,7 @@
  '(dashboard-banner-logo-title "")
  '(dashboard-footer-icon "")
  '(dashboard-footer-messages '(""))
+ '(dashboard-image-banner-max-width 180)
  '(dashboard-startup-banner (file-name-concat (xdg-data-home) "emacs/banner.png"))
  '(delete-selection-mode t)
  '(dired-isearch-filenames t)
@@ -134,7 +135,7 @@
    '(ag chruby company cucumber dap-mode dash dashboard editorconfig
         es-mode exec-path-from-shell fill-column-indicator flycheck
         flycheck-haskell forge form-feed haml-mode haskell-mode
-        haskell-ts-mode helm image+ lsp-haskell lsp-mode lsp-ui magit
+        haskell-ts-mode helm image+ kotlin-mode kotlin-ts-mode lsp-haskell lsp-mode lsp-ui magit
         markdown-mode php-mode prettier-js projectile psc-ide
         purescript-mode quelpa restart-emacs ripgrep rjsx-mode
         rust-mode ssh-agency typescript-mode visual-fill-column
