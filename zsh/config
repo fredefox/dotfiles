@@ -32,13 +32,14 @@ jwt-decode() {
   jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
 }
 
-alias awws='echo $@ | xargs -n1 aww run'
-
-openvpn-connect() {
-  CREDENTIALS=${1:-$HOME/.config/openvpn/credentials/fhi@penneo.com}
-  openvpn --config product_fhi@penneo.com_penneo-ops.ovpn --auth-user-pass --auth-retry interact --auth-user-pass $CREDENTIALS
-}
-
 decode-uri-component() {
   node -e 'const fs = require("fs"); const stdin = fs.readFileSync(0); console.log(decodeURIComponent(stdin.toString()));'
 }
+
+bindkey '^[l' down-case-word
+
+docker-mounts() {
+  docker inspect -f '{{ .Name }}{{ range .Mounts }}{{ printf "\n\t" }}{{ .Type }} {{ if eq .Type "bind" }}{{ .Source }}{{ end }}{{ .Name }} => {{ .Destination }}{{ end }}' $@
+}
+
+source "$ZDOTDIR/penneo.sh"
