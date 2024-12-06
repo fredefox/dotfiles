@@ -121,6 +121,7 @@
  '(lsp-haskell-plugin-refine-imports-global-on nil)
  '(lsp-haskell-plugin-stan-global-on nil)
  '(lsp-headerline-breadcrumb-enable nil)
+ '(lsp-keymap-prefix "C-c l")
  '(magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
  '(magit-popup-display-buffer-action nil)
  '(markdown-command "pandoc -t html")

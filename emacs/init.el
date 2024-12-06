@@ -126,6 +126,7 @@ Leave point after open-quote."
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
 
 (require 'lsp-eslint)
 (add-hook
