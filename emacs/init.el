@@ -244,6 +244,10 @@ npm i -g sql-formatter-cli"
 
 (require 'dap-mode)
 (require 'dap-php)
+(require 'dap-kotlin)
+
+(setq dap-auto-configure-features '(sessions locals controls tooltip))
+
 (defconst dap-debug--debug-template-api-sign
   `(
     :type "php"
@@ -267,12 +271,35 @@ npm i -g sql-formatter-cli"
     :serverSourceRoot "/app/data"
     :localSourceRoot ,(substitute-in-file-name "$HOME/git/penneo/api-auth")
     :port 9004
+    :enableJsonLogging nil
     ;; :args '("--server=4711")
     :sourceMaps t))
 
+(defconst dap-debug--debug-template-api-pdf
+  `(
+    :type "kotlin"
+    :cwd ,(substitute-in-file-name "$HOME/git/penneo/api-pdf/api")
+    :request "launch"
+    :name "api-pdf"
+    ;; :stopOnEntry t
+    :serverSourceRoot "/app/data"
+    :mainClass "com.penneo.pdf.api.AppKt"
+    :localSourceRoot ,(substitute-in-file-name "$HOME/git/penneo/api-auth")
+    :port 9004
+    ;; :args '("--server=4711")
+    :sourceMaps t))
+
+(defconst dap-debug--debug-template-api-pdf
+  `(
+    :type "kotlin"
+    :request "attach"
+    :port 8789
+    :mainClass "com.penneo.pdf.api.AppKt"))
+
 (defconst dap-debug--debug-templates
   `((api-sign . ,dap-debug--debug-template-api-sign)
-    (api-auth . ,dap-debug--debug-template-api-auth)))
+    (api-auth . ,dap-debug--debug-template-api-auth)
+    (api-pdf . ,dap-debug--debug-template-api-pdf)))
 
 (mapc (lambda (pair) (dap-register-debug-template (symbol-name (car pair)) (cdr pair))) dap-debug--debug-templates)
 
@@ -283,6 +310,11 @@ npm i -g sql-formatter-cli"
   "Run `dap-debug` with the configuration `dap-debug--debug-template-api-sign'."
   (interactive)
   (dap-debug dap-debug--debug-template-api-sign))
+
+(defun dap-debug-api-pdf ()
+  "Run `dap-debug` with the configuration `dap-debug--debug-template-api-pdf'."
+  (interactive)
+  (dap-debug dap-debug--debug-template-api-pdf))
 
 (define-key dap-mode-map (kbd "<f8>") 'dap-continue)
 (define-key dap-mode-map (kbd "<f10>") 'dap-next)

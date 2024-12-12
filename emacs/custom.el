@@ -26,6 +26,7 @@
      "de48118c05b391e4f1754474c6b1de5c52e2018a90a9cd1f02a14e59d4c9ddd5"
      default))
  '(custom-theme-directory (file-name-concat user-emacs-directory "themes"))
+ '(dap-ui-controls-screen-position 'posframe-poshandler-frame-top-right-corner)
  '(dashboard-banner-logo-title "")
  '(dashboard-footer-icon "")
  '(dashboard-footer-messages '(""))
@@ -123,6 +124,8 @@
  '(lsp-haskell-plugin-stan-global-on nil)
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-keymap-prefix "C-c l")
+ '(lsp-kotlin-debug-adapter-enabled t)
+ '(lsp-kotlin-debug-adapter-path "/opt/kotlin-debug-adapter/bin/kotlin-debug-adapter")
  '(magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
  '(magit-popup-display-buffer-action nil)
  '(markdown-command "pandoc -t html")
@@ -135,11 +138,11 @@
    '(ag chruby company cucumber dap-mode dash dashboard editorconfig
         es-mode exec-path-from-shell fill-column-indicator flycheck
         flycheck-haskell forge form-feed haml-mode haskell-mode
-        haskell-ts-mode helm image+ kotlin-mode kotlin-ts-mode lsp-haskell lsp-mode lsp-ui magit
-        markdown-mode php-mode prettier-js projectile psc-ide
-        purescript-mode quelpa restart-emacs ripgrep rjsx-mode
-        rust-mode ssh-agency typescript-mode visual-fill-column
-        which-key yaml-mode))
+        haskell-ts-mode helm image+ kotlin-mode kotlin-ts-mode
+        lsp-haskell lsp-mode lsp-ui magit markdown-mode php-mode
+        prettier-js projectile psc-ide purescript-mode quelpa
+        restart-emacs ripgrep rjsx-mode rust-mode ssh-agency
+        typescript-mode visual-fill-column which-key yaml-mode))
  '(package-vc-selected-packages
    '((chruby :url "git@github.com:plexus/chruby.el.git" :vc-backend Git)
      (psc-ide :url "git@github.com:purescript-emacs/psc-ide-emacs.git"
@@ -209,6 +212,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#090101" :foreground "#f6fefe" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 130 :width normal :foundry "ADBO" :family "Source Code Pro"))))
+ '(dap-ui-marker-face ((t (:inherit underline))))
  '(fixed-pitch-serif ((t (:family "Monospace Serif"))))
  '(font-lock-comment-face ((t (:foreground "#e66f19"))))
  '(font-lock-string-face ((t (:foreground "#ffcc33"))))
