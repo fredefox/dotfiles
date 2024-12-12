@@ -18,9 +18,12 @@ path() {echo $PATH | tr : \\n}
 alias pbcopy="xclip -sel clip -in"
 alias pbpaste="xclip -sel clip -out"
 
-if [[ ! -v ENVIRONMENT_D_RUN ]]; then
-  source $HOME/.config/environment.d/*.conf
+if [[ ! -v ENVIRONMENT_D_RUN ]];
+then
+  echo source $HOME/.config/environment.d/*.conf
 fi
+# TODO: Move this up one line after restarting system
+source $HOME/.config/environment.d/secrets.conf
 
 export GHCUP_USE_XDG_DIRS=true
 [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env" # ghcup-env
