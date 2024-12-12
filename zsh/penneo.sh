@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 alias awws='echo $@ | xargs -n1 aww run'
 
 openvpn-connect() {

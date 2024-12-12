@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Begin compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit -d "$XDG_DATA_HOME/zsh/zcompdump-$HOST-$ZSH_VERSION"
