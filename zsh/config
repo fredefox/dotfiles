@@ -21,7 +21,9 @@ alias pbpaste="xclip -sel clip -out"
 if [[ ! -v ENVIRONMENT_D_RUN ]]; then
   source $HOME/.config/environment.d/*.conf
 fi
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+
+export GHCUP_USE_XDG_DIRS=true
+[ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env" # ghcup-env
 alias ls="ls --color=tty"
 bindkey "^I" complete-word
 
